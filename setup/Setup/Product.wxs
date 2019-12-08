@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Setup" Language="1033" Version="1.0.1.4" Manufacturer="ThreeSixNine" UpgradeCode="9d86e457-d7b4-46b6-b68a-87d19fe3f502">
+	<Product Id="*" Name="JRTrim" Language="1033" Version="1.0.1.5" Manufacturer="ThreeSixNine" UpgradeCode="9d86e457-d7b4-46b6-b68a-87d19fe3f502">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />

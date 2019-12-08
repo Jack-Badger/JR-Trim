@@ -6,43 +6,43 @@
     <Fragment>
         <ComponentGroup Id="AddInComRegGroup">
             <Component Id="cmpE1DCC68AAD4FC376E62664F49882465A" Directory="INSTALLFOLDER" Guid="*">
+                <Class Id="{10AEE9AD-F370-35D5-8E46-43E288CD0AFC}" Context="InprocServer32" Description="Jack.PMPHandler" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Jack.PMPHandler" Description="Jack.PMPHandler" />
+                </Class>
+                <Class Id="{66A55847-DC26-3C0C-A8F4-425FE6935F5A}" Context="InprocServer32" Description="Jack.Features.JRTrim.JRTrimMacroFeature" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="JackBadger.JRTrimMacroFeature" Description="Jack.Features.JRTrim.JRTrimMacroFeature" />
+                </Class>
                 <Class Id="{6A806C14-F5FB-411B-9B63-9AC080F656AC}" Context="InprocServer32" Description="Jack.JRTrimAddIn" ThreadingModel="both" ForeignServer="mscoree.dll">
                     <ProgId Id="Jack.JRTrimAddIn" Description="Jack.JRTrimAddIn" />
                 </Class>
-                <Class Id="{8D9D8067-52DE-3482-B0D4-62DDB02BD8FD}" Context="InprocServer32" Description="Jack.PMPHandler" ThreadingModel="both" ForeignServer="mscoree.dll">
-                    <ProgId Id="Jack.PMPHandler" Description="Jack.PMPHandler" />
-                </Class>
-                <Class Id="{ADFF59AA-400A-33A4-8B59-BCE56DAC7AC2}" Context="InprocServer32" Description="Jack.Features.JRTrim.JRTrimMacroFeature" ThreadingModel="both" ForeignServer="mscoree.dll">
-                    <ProgId Id="JackBadger.JRTrimMacroFeature" Description="Jack.Features.JRTrim.JRTrimMacroFeature" />
-                </Class>
                 <File Id="filDB1555D63F05B0118CC3BC65798F5D6D" KeyPath="yes" Source="$(var.SourceOutDir)\JRTrim.dll" />
+                <RegistryValue Root="HKCR" Key="CLSID\{10AEE9AD-F370-35D5-8E46-43E288CD0AFC}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{10AEE9AD-F370-35D5-8E46-43E288CD0AFC}\InprocServer32\1.0.1.5" Name="Class" Value="Jack.PMPHandler" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{10AEE9AD-F370-35D5-8E46-43E288CD0AFC}\InprocServer32\1.0.1.5" Name="Assembly" Value="JRTrim, Version=1.0.1.5, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{10AEE9AD-F370-35D5-8E46-43E288CD0AFC}\InprocServer32\1.0.1.5" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{10AEE9AD-F370-35D5-8E46-43E288CD0AFC}\InprocServer32\1.0.1.5" Name="CodeBase" Value="file:///[#filDB1555D63F05B0118CC3BC65798F5D6D]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{10AEE9AD-F370-35D5-8E46-43E288CD0AFC}\InprocServer32" Name="Class" Value="Jack.PMPHandler" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{10AEE9AD-F370-35D5-8E46-43E288CD0AFC}\InprocServer32" Name="Assembly" Value="JRTrim, Version=1.0.1.5, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{10AEE9AD-F370-35D5-8E46-43E288CD0AFC}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{10AEE9AD-F370-35D5-8E46-43E288CD0AFC}\InprocServer32" Name="CodeBase" Value="file:///[#filDB1555D63F05B0118CC3BC65798F5D6D]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{66A55847-DC26-3C0C-A8F4-425FE6935F5A}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{66A55847-DC26-3C0C-A8F4-425FE6935F5A}\InprocServer32\1.0.1.5" Name="Class" Value="Jack.Features.JRTrim.JRTrimMacroFeature" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{66A55847-DC26-3C0C-A8F4-425FE6935F5A}\InprocServer32\1.0.1.5" Name="Assembly" Value="JRTrim, Version=1.0.1.5, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{66A55847-DC26-3C0C-A8F4-425FE6935F5A}\InprocServer32\1.0.1.5" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{66A55847-DC26-3C0C-A8F4-425FE6935F5A}\InprocServer32\1.0.1.5" Name="CodeBase" Value="file:///[#filDB1555D63F05B0118CC3BC65798F5D6D]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{66A55847-DC26-3C0C-A8F4-425FE6935F5A}\InprocServer32" Name="Class" Value="Jack.Features.JRTrim.JRTrimMacroFeature" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{66A55847-DC26-3C0C-A8F4-425FE6935F5A}\InprocServer32" Name="Assembly" Value="JRTrim, Version=1.0.1.5, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{66A55847-DC26-3C0C-A8F4-425FE6935F5A}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{66A55847-DC26-3C0C-A8F4-425FE6935F5A}\InprocServer32" Name="CodeBase" Value="file:///[#filDB1555D63F05B0118CC3BC65798F5D6D]" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{6A806C14-F5FB-411B-9B63-9AC080F656AC}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{6A806C14-F5FB-411B-9B63-9AC080F656AC}\InprocServer32\1.0.1.4" Name="Class" Value="Jack.JRTrimAddIn" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{6A806C14-F5FB-411B-9B63-9AC080F656AC}\InprocServer32\1.0.1.4" Name="Assembly" Value="JRTrim, Version=1.0.1.4, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{6A806C14-F5FB-411B-9B63-9AC080F656AC}\InprocServer32\1.0.1.4" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{6A806C14-F5FB-411B-9B63-9AC080F656AC}\InprocServer32\1.0.1.4" Name="CodeBase" Value="file:///[#filDB1555D63F05B0118CC3BC65798F5D6D]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{6A806C14-F5FB-411B-9B63-9AC080F656AC}\InprocServer32\1.0.1.5" Name="Class" Value="Jack.JRTrimAddIn" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{6A806C14-F5FB-411B-9B63-9AC080F656AC}\InprocServer32\1.0.1.5" Name="Assembly" Value="JRTrim, Version=1.0.1.5, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{6A806C14-F5FB-411B-9B63-9AC080F656AC}\InprocServer32\1.0.1.5" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{6A806C14-F5FB-411B-9B63-9AC080F656AC}\InprocServer32\1.0.1.5" Name="CodeBase" Value="file:///[#filDB1555D63F05B0118CC3BC65798F5D6D]" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{6A806C14-F5FB-411B-9B63-9AC080F656AC}\InprocServer32" Name="Class" Value="Jack.JRTrimAddIn" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{6A806C14-F5FB-411B-9B63-9AC080F656AC}\InprocServer32" Name="Assembly" Value="JRTrim, Version=1.0.1.4, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{6A806C14-F5FB-411B-9B63-9AC080F656AC}\InprocServer32" Name="Assembly" Value="JRTrim, Version=1.0.1.5, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{6A806C14-F5FB-411B-9B63-9AC080F656AC}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{6A806C14-F5FB-411B-9B63-9AC080F656AC}\InprocServer32" Name="CodeBase" Value="file:///[#filDB1555D63F05B0118CC3BC65798F5D6D]" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{8D9D8067-52DE-3482-B0D4-62DDB02BD8FD}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{8D9D8067-52DE-3482-B0D4-62DDB02BD8FD}\InprocServer32\1.0.1.4" Name="Class" Value="Jack.PMPHandler" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{8D9D8067-52DE-3482-B0D4-62DDB02BD8FD}\InprocServer32\1.0.1.4" Name="Assembly" Value="JRTrim, Version=1.0.1.4, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{8D9D8067-52DE-3482-B0D4-62DDB02BD8FD}\InprocServer32\1.0.1.4" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{8D9D8067-52DE-3482-B0D4-62DDB02BD8FD}\InprocServer32\1.0.1.4" Name="CodeBase" Value="file:///[#filDB1555D63F05B0118CC3BC65798F5D6D]" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{8D9D8067-52DE-3482-B0D4-62DDB02BD8FD}\InprocServer32" Name="Class" Value="Jack.PMPHandler" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{8D9D8067-52DE-3482-B0D4-62DDB02BD8FD}\InprocServer32" Name="Assembly" Value="JRTrim, Version=1.0.1.4, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{8D9D8067-52DE-3482-B0D4-62DDB02BD8FD}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{8D9D8067-52DE-3482-B0D4-62DDB02BD8FD}\InprocServer32" Name="CodeBase" Value="file:///[#filDB1555D63F05B0118CC3BC65798F5D6D]" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{ADFF59AA-400A-33A4-8B59-BCE56DAC7AC2}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{ADFF59AA-400A-33A4-8B59-BCE56DAC7AC2}\InprocServer32\1.0.1.4" Name="Class" Value="Jack.Features.JRTrim.JRTrimMacroFeature" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{ADFF59AA-400A-33A4-8B59-BCE56DAC7AC2}\InprocServer32\1.0.1.4" Name="Assembly" Value="JRTrim, Version=1.0.1.4, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{ADFF59AA-400A-33A4-8B59-BCE56DAC7AC2}\InprocServer32\1.0.1.4" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{ADFF59AA-400A-33A4-8B59-BCE56DAC7AC2}\InprocServer32\1.0.1.4" Name="CodeBase" Value="file:///[#filDB1555D63F05B0118CC3BC65798F5D6D]" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{ADFF59AA-400A-33A4-8B59-BCE56DAC7AC2}\InprocServer32" Name="Class" Value="Jack.Features.JRTrim.JRTrimMacroFeature" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{ADFF59AA-400A-33A4-8B59-BCE56DAC7AC2}\InprocServer32" Name="Assembly" Value="JRTrim, Version=1.0.1.4, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{ADFF59AA-400A-33A4-8B59-BCE56DAC7AC2}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{ADFF59AA-400A-33A4-8B59-BCE56DAC7AC2}\InprocServer32" Name="CodeBase" Value="file:///[#filDB1555D63F05B0118CC3BC65798F5D6D]" Type="string" Action="write" />
             </Component>
         </ComponentGroup>
     </Fragment>
