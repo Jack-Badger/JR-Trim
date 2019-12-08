@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Setup" Language="1033" Version="1.0.0.0" Manufacturer="ThreeSixNine" UpgradeCode="9d86e457-d7b4-46b6-b68a-87d19fe3f502">
+	<Product Id="*" Name="Setup" Language="1033" Version="1.0.1.4" Manufacturer="ThreeSixNine" UpgradeCode="9d86e457-d7b4-46b6-b68a-87d19fe3f502">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -13,7 +13,7 @@
     <!--<Property Id="ARPPRODUCTICON" Value="MainIconId" />-->
     <!--<WixVariable Id="WixUIBannerBmp" Value="Reasources\banner.bmp" />-->
     <!--<WixVariable Id="WixUIDialogBmp" Value="Resources\dialog.bmp" />-->
-    <!--<WixVariable Id="WixUILicenseRtf" Value="Resources\eula.rtf" />-->
+    <WixVariable Id="WixUILicenseRtf" Value="Resources\daftEULA.rtf" />
     
 		<Feature Id="ProductFeature" Title="Setup" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
@@ -54,7 +54,7 @@
         <File Id='CodeStack.SwEx.MacroFeature.dllID' Name='CodeStack.SwEx.MacroFeature.dll' Source ='$(var.SourceOutDir)\CodeStack.SwEx.MacroFeature.dll' />
         <File Id='CodeStack.SwEx.PMPage.dllID' Name='CodeStack.SwEx.PMPage.dll' Source ='$(var.SourceOutDir)\CodeStack.SwEx.PMPage.dll' />
         <File Id='Xarial.VPages.Framework.dllID' Name='Xarial.VPages.Framework.dll' Source ='$(var.SourceOutDir)\Xarial.VPages.Framework.dll' />
-        <File Id='JackIt.tlbID' Name='JackIt.tlb' Source ='$(var.SourceOutDir)\JackIt.tlb' />
+        <File Id='JRTrim.tlbID' Name='JRTrim.tlb' Source ='$(var.SourceOutDir)\JRTrim.tlb' />
         <!--<File Id='FileNameID' Name='FileName' Source ='$(var.SourceOutDir)\FileName' />-->
         
       </Component>
