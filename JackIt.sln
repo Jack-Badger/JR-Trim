@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JRTrim", "JRTrim.csproj", "{9FBBE797-86CE-4EB1-A5D0-EFB056A70985}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Setup", "setup\Setup\Setup.wixproj", "{B0BD0513-2B7D-4EB0-9E1A-9C8537FA9D2B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9FBBE797-86CE-4EB1-A5D0-EFB056A70985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FBBE797-86CE-4EB1-A5D0-EFB056A70985}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FBBE797-86CE-4EB1-A5D0-EFB056A70985}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9FBBE797-86CE-4EB1-A5D0-EFB056A70985}.Debug|x86.Build.0 = Debug|Any CPU
+		{9FBBE797-86CE-4EB1-A5D0-EFB056A70985}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FBBE797-86CE-4EB1-A5D0-EFB056A70985}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FBBE797-86CE-4EB1-A5D0-EFB056A70985}.Release|x86.ActiveCfg = Release|Any CPU
+		{9FBBE797-86CE-4EB1-A5D0-EFB056A70985}.Release|x86.Build.0 = Release|Any CPU
+		{B0BD0513-2B7D-4EB0-9E1A-9C8537FA9D2B}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{B0BD0513-2B7D-4EB0-9E1A-9C8537FA9D2B}.Debug|x86.ActiveCfg = Debug|x64
+		{B0BD0513-2B7D-4EB0-9E1A-9C8537FA9D2B}.Release|Any CPU.ActiveCfg = Release|x64
+		{B0BD0513-2B7D-4EB0-9E1A-9C8537FA9D2B}.Release|x86.ActiveCfg = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FF00510B-B58F-4054-9BB8-1E128240464C}
+	EndGlobalSection
+EndGlobal

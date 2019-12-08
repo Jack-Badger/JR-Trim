@@ -1,0 +1,890 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CodeStack.SwEx.AddIn</name>
+    </assembly>
+    <members>
+        <member name="T:CodeStack.SwEx.AddIn.Attributes.AutoRegisterAttribute">
+            <summary>
+            Automatically adds the information about the add-in into the registry
+            </summary>
+            <remarks>The registration is triggered when the add-in is registered as COM assembly using the regasm utility.
+            If <see cref="P:CodeStack.SwEx.AddIn.Attributes.AutoRegisterAttribute.Title"/> or <see cref="P:CodeStack.SwEx.AddIn.Attributes.AutoRegisterAttribute.Description"/> are not specified (empty string) than
+            title and description will be read from <see cref="T:SolidWorksTools.SwAddinAttribute"/>. If this attribute is not 
+            specified than title will be assigned from the <see cref="T:System.ComponentModel.DisplayNameAttribute"/> and description will be assined from
+            <see cref="T:System.ComponentModel.DescriptionAttribute"/>
+            </remarks>
+            <example>
+            <code language="c#" title="Add-in title specified via AutoRegisterAttribute">
+            [Guid("GUID"), ComVisible(true)]
+            [AutoRegister("Sample AddInEx", "Sample AddInEx", true)]
+            public class SwSampleAddIn : SwAddInEx { }
+            </code>
+            <code language="c#" title="Add-in title specified via SwAddinAttribute">
+            [Guid("GUID"), ComVisible(true)]
+            [SwAddin(Title = "Sample AddInEx", Description = "Sample AddInEx", LoadAtStartup = true)]
+            [AutoRegister]
+            public class SwSampleAddIn : SwAddInEx { }
+            </code>
+            <code language="c#" title="Add-in title specified via DisplayNameAttribute and DescriptionAttribute">
+            [Guid("GUID"), ComVisible(true)]
+            [DisplayName("Sample AddInEx")]
+            [Description("Sample AddInEx")]
+            [AutoRegister]
+            public class SwSampleAddIn : SwAddInEx { }
+            </code>
+            </example>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Attributes.AutoRegisterAttribute.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            Constructor for adding the parameters for add-in registration
+            </summary>
+            <param name="title">Title of the add-in</param>
+            <param name="desc">Description of the add-in</param>
+            <param name="loadAtStartup">Indicates if the add-in should be loaded at startup</param>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Attributes.CommandGroupInfoAttribute">
+            <summary>
+            Provides the additional information about the command group
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Attributes.CommandGroupInfoAttribute.#ctor(System.Int32)">
+            <summary>
+            Constructor for specifying the additional information for group
+            </summary>
+            <param name="userId">User id for the command group. Must be unique per add-in</param>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Attributes.CommandGroupInfoAttribute.#ctor(System.Type)">
+            <param name="parentGroupType">Type of the parent group enumeration</param>
+            <inheritdoc cref="M:CodeStack.SwEx.AddIn.Attributes.CommandGroupInfoAttribute.#ctor(System.Int32)"/>
+            <remarks>This group will be displayed as sub group in the menu and separated in the command tab box</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Attributes.CommandGroupInfoAttribute.#ctor(System.Int32,System.Type)">
+            <inheritdoc cref="M:CodeStack.SwEx.AddIn.Attributes.CommandGroupInfoAttribute.#ctor(System.Int32)"/>
+            <inheritdoc cref="M:CodeStack.SwEx.AddIn.Attributes.CommandGroupInfoAttribute.#ctor(System.Type)"/>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Attributes.CommandItemInfoAttribute">
+            <summary>
+            Provides additional information about the item command
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Attributes.CommandItemInfoAttribute.#ctor(CodeStack.SwEx.AddIn.Enums.swWorkspaceTypes_e)">
+            <summary>
+            Constructor for specifying additional information about command item
+            </summary>
+            <param name="suppWorkspaces">Indicates the workspaces where this command is enabled. This information is used in the default command enable handler</param>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Attributes.CommandItemInfoAttribute.#ctor(System.Boolean,System.Boolean,CodeStack.SwEx.AddIn.Enums.swWorkspaceTypes_e)">
+            <inheritdoc cref="M:CodeStack.SwEx.AddIn.Attributes.CommandItemInfoAttribute.#ctor(CodeStack.SwEx.AddIn.Enums.swWorkspaceTypes_e)"/>
+            <param name="hasMenu">Indicates if this command should be displayed in the menu</param>
+            <param name="hasToolbar">Indicates if this command should be displayed in the toolbar</param>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Attributes.CommandItemInfoAttribute.#ctor(System.Boolean,System.Boolean,CodeStack.SwEx.AddIn.Enums.swWorkspaceTypes_e,System.Boolean,SolidWorks.Interop.swconst.swCommandTabButtonTextDisplay_e)">
+            <inheritdoc cref="M:CodeStack.SwEx.AddIn.Attributes.CommandItemInfoAttribute.#ctor(System.Boolean,System.Boolean,CodeStack.SwEx.AddIn.Enums.swWorkspaceTypes_e)"/>
+            <param name="showInCmdTabBox">Indicates that this command should be added to command tab box in command manager (ribbon)</param>
+            <param name="textStyle">Text display type for command in command tab box as defined in <see href="https://help.solidworks.com/2012/English/api/swconst/SolidWorks.Interop.swconst~SolidWorks.Interop.swconst.swCommandTabButtonTextDisplay_e.html?id=3d6975f51c4648378ad4beaf4d3144ca">swCommandTabButtonTextDisplay_e Enumeration</see>.
+            This option is applicable when 'showInCmdTabBox' is set to true</param>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Attributes.CommandIconAttribute">
+            <summary>
+            Loads the icon information from the resources
+            </summary>
+            <remarks>This attribute can be applied to command group (defined as enumeration) and items within the group (defined as enumeration value)</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Attributes.CommandIconAttribute.#ctor(System.Type,System.String)">
+            <param name="resType">Type of the static class (usually Resources)</param>
+            <param name="masterResName">Resource name of the master icon</param>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Attributes.CommandIconAttribute.#ctor(System.Type,System.String,System.String)">
+            <param name="resType">Type of the static class (usually Resources)</param>
+            <param name="size16x16ResName">Resource name of the small icon</param>
+            <param name="size24x24ResName">Resource name of the large icon</param>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Attributes.CommandIconAttribute.#ctor(System.Type,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <param name="resType">Type of the static class (usually Resources)</param>
+            <param name="size20x20ResName">Resource name of the extra small icon</param>
+            <param name="size32x32ResName">Resource name of the small icon</param>
+            <param name="size40x40ResName">Resource name of the medium icon</param>
+            <param name="size64x64ResName">Resource name of the large icon</param>
+            <param name="size96x96ResName">Resource name of the extra large icon</param>
+            <param name="size128x128ResName">Resource name of the high resolution icon</param>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Attributes.CommandSpacerAttribute">
+            <summary>
+            Marks the command to be separated by the spacer (separator) in the menu and the toolbar
+            </summary>
+            <remarks>Spacer is added before the command marked with this attribute</remarks>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Attributes.TaskPaneIconAttribute">
+            <summary>
+            Allows to assign task pane specific icon
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Attributes.TaskPaneIconAttribute.#ctor(System.Type,System.String)">
+            <param name="resType">Type of the static class (usually Resources)</param>
+            <param name="masterResName">Resource name of the master icon</param>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Attributes.TaskPaneIconAttribute.#ctor(System.Type,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <param name="resType">Type of the static class (usually Resources)</param>
+            <param name="size20x20ResName">Resource name of the extra small icon</param>
+            <param name="size32x32ResName">Resource name of the small icon</param>
+            <param name="size40x40ResName">Resource name of the medium icon</param>
+            <param name="size64x64ResName">Resource name of the large icon</param>
+            <param name="size96x96ResName">Resource name of the extra large icon</param>
+            <param name="size128x128ResName">Resource name of the high resolution icon</param>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Attributes.TaskPaneStandardButtonAttribute">
+            <summary>
+            Allows to assign the standard icon for the task pane command
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Attributes.TaskPaneStandardButtonAttribute.#ctor(SolidWorks.Interop.swconst.swTaskPaneBitmapsOptions_e)">
+            <param name="icon">Standard task pane icon</param>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Base.IComStorage">
+            <summary>
+            Wrapper for <see cref="T:CodeStack.SwEx.AddIn.Core.IStorage"/> interface for handling the operations with compound storage
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.AddIn.Base.IComStorage.Storage">
+            <summary>
+            Pointer to the underlying COM storage
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Base.IComStorage.TryOpenStorage(System.String,System.Boolean)">
+            <summary>
+            Attempts to open sub storage
+            </summary>
+            <param name="storageName">Sub storage name</param>
+            <param name="createIfNotExist">True to create storage if not exists</param>
+            <returns>Pointer to sub storage or null</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Base.IComStorage.TryOpenStream(System.String,System.Boolean)">
+            <summary>
+            Attempts to open sub stream
+            </summary>
+            <param name="streamName">Stream name</param>
+            <param name="createIfNotExist">Create stream if not exists</param>
+            <returns>Pointer to stream or null</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Base.IComStorage.GetSubStreamNames">
+            <summary>
+            Gets all children stream names
+            </summary>
+            <returns>Stream names</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Base.IComStorage.GetSubStorageNames">
+            <summary>
+            Gets all children storages names
+            </summary>
+            <returns>Storages names</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Base.IComStorage.RemoveSubElement(System.String)">
+            <summary>
+            Removes child stream or storage
+            </summary>
+            <param name="name">Stream or storage name</param>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Base.IDocumentHandler">
+            <summary>
+            Document handler to be used in <see cref="T:CodeStack.SwEx.AddIn.Base.IDocumentsHandler`1"/> documents manager
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Base.IDocumentHandler.Init(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2)">
+            <summary>
+            Called when model document is initialized (created)
+            </summary>
+            <param name="app">Pointer to SOLIDWORKS application</param>
+            <param name="model">Pointer to this model document</param>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Base.IDocumentsHandler`1">
+            <summary>
+            Manages the lifecycle of documents
+            </summary>
+            <typeparam name="TDocHandler">Custom document handler to wrap models</typeparam>
+        </member>
+        <member name="E:CodeStack.SwEx.AddIn.Base.IDocumentsHandler`1.HandlerCreated">
+            <summary>
+            Event raised when new document handler is created
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.AddIn.Base.IDocumentsHandler`1.Item(SolidWorks.Interop.sldworks.IModelDoc2)">
+            <summary>
+            Accesses the document handler by pointer to model
+            </summary>
+            <param name="model">Pointer to model</param>
+            <returns>Corresponding model handler</returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException"/>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Base.ISwAddInEx">
+            <summary>
+            Base interface for enabling the Framework for SOLIDWORKS add-ins
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Base.ISwAddInEx.OnConnect">
+            <summary>
+            Overload to initialize the data. This method is called
+            from <see cref="M:SolidWorks.Interop.swpublished.ISwAddin.ConnectToSW(System.Object,System.Int32)"/> method when the add-in loads
+            </summary>
+            <returns>True if initialization is successful. Return false to stop loading the add-in
+            (in this case add-in will be unchecked in the add-ins manager dialog)</returns>
+            <remarks>Use this method to load the command manager using the
+            <see cref="M:CodeStack.SwEx.AddIn.Base.ISwAddInEx.AddCommandGroup``1(System.Action{``0},CodeStack.SwEx.AddIn.Delegates.EnableMethodDelegate{``0})"/>
+            or <see cref="M:CodeStack.SwEx.AddIn.Base.ISwAddInEx.AddContextMenu``1(System.Action{``0},SolidWorks.Interop.swconst.swSelectType_e,CodeStack.SwEx.AddIn.Delegates.EnableMethodDelegate{``0})"/> methods</remarks>
+            Access the pointer to application via m_App field
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Base.ISwAddInEx.OnDisconnect">
+            <summary>
+            Called on disposing of the add-in (either when SOLIDWORKS application closes
+            or when add-in is explicitly unloaded by the user from the AddIns Manager dialog)
+            </summary>
+            <returns>True to indicate that unloading is successful</returns>
+            <remarks>Use this method to clear all temp files or close the opened streams</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Base.ISwAddInEx.AddCommandGroup``1(System.Action{``0},CodeStack.SwEx.AddIn.Delegates.EnableMethodDelegate{``0})">
+            <summary>
+            Add command group based on the defined commands enumerator
+            </summary>
+            <typeparam name="TCmdEnum">Enumerator with commands</typeparam>
+            <param name="callback">Callback function for the commands</param>
+            <param name="enable">Optional enable method for the commands.
+            If this method is not used than command will be enabled according to the workspace
+            defined in the <see cref="P:CodeStack.SwEx.AddIn.Attributes.CommandItemInfoAttribute.SupportedWorkspaces"/> for this command</param>
+            <returns>Newly created command group</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Base.ISwAddInEx.AddContextMenu``1(System.Action{``0},SolidWorks.Interop.swconst.swSelectType_e,CodeStack.SwEx.AddIn.Delegates.EnableMethodDelegate{``0})">
+            <summary>
+            Add context menu based on the defined commands enumerator
+            </summary>
+            <typeparam name="TCmdEnum">Enumerator with commands</typeparam>
+            <param name="callback">Callback function for the commands</param>
+            <param name="contextMenuSelectType">Selection type where the menu is enabled as defined in <see href="https://help.solidworks.com/2012/english/api/swconst/solidworks.interop.swconst~solidworks.interop.swconst.swselecttype_e.html">swSelectType_e</see></param>
+            <param name="enable">Optional enable method for the commands.
+            If this method is not used than command will be enabled according to the workspace
+            defined in the <see cref="P:CodeStack.SwEx.AddIn.Attributes.CommandItemInfoAttribute.SupportedWorkspaces"/> for this command</param>
+            <returns>Newly created <see href="https://help.solidworks.com/2012/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.ICommandGroup.html">CommandGroup</see></returns>
+            <remarks>It is only possible to specify single selection group for the context menu.
+            If it is required to enable the menu for multiple selection elements
+            use <see cref="F:SolidWorks.Interop.swconst.swSelectType_e.swSelEVERYTHING"/> option and <paramref name="enable"/> parameter
+            to specify the enable function</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Base.ISwAddInEx.CreateDocumentsHandler``1">
+            <summary>
+            Creates document life cycle hander model
+            </summary>
+            <typeparam name="TDocHandler">Document handler wrapper</typeparam>
+            <returns>Documents handler instance</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Base.ISwAddInEx.CreateDocumentsHandler">
+            <summary>
+            Creates generic documents handler which exposes lifecycle events
+            </summary>
+            <returns>Instance of generic documents handler. Explore the available events of <see cref="T:CodeStack.SwEx.AddIn.Core.DocumentHandler"/> type</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Base.ISwAddInEx.CreateTaskPane``1(``0@)">
+            <inheritdoc cref="M:CodeStack.SwEx.AddIn.Base.ISwAddInEx.CreateTaskPane``2(System.Action{``1},``0@)"/>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Base.ISwAddInEx.CreateTaskPane``2(System.Action{``1},``0@)">
+            <summary>
+            Creates task pane control
+            </summary>
+            <typeparam name="TControl">Control type to host in task pane</typeparam>
+            <typeparam name="TCmdEnum">Descriptor for commands in task pane. Use <see cref="T:CodeStack.SwEx.AddIn.Attributes.TaskPaneStandardButtonAttribute"/> to mark standard commands</typeparam>
+            <param name="ctrl">Instance of created control</param>
+            <returns>Task pane view</returns>
+            <param name="cmdHandler">Handler of the commands</param>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Base.IThirdPartyStoreHandler">
+            <summary>
+            Disposable handler for SOLIDWORKS model 3rd party storage store
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.AddIn.Base.IThirdPartyStoreHandler.Storage">
+            <summary>
+            Underlying COM storage
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Base.IThirdPartyStreamHandler">
+            <summary>
+            Disposable handler for SOLIDWORKS model 3rd party storage (stream)
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.AddIn.Base.IThirdPartyStreamHandler.Stream">
+            <summary>
+            Underlying stream
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Delegates.Access3rdPartyDataDelegate">
+            <summary>
+            Delegate of <see cref="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.Access3rdPartyData"/> event
+            </summary>
+            <param name="docHandler">Document Handler which sends this notification</param>
+            <param name="state">Type of the 3rd party storage access</param>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Delegates.ConfigurationChangeDelegate">
+            <summary>
+            Delegate of <see cref="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.ConfigurationChange"/> event
+            </summary>
+            <param name="docHandler">Document Handler which sends this notification</param>
+            <param name="state">Type of the configuration change</param>
+            <param name="confName">Name of the new configuration</param>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Delegates.CustomPropertyModifyData">
+            <summary>
+            Custom Property modification data
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.AddIn.Delegates.CustomPropertyModifyData.Action">
+            <summary>
+            Type of the modification
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.AddIn.Delegates.CustomPropertyModifyData.Name">
+            <summary>
+            Name of the custom property
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.AddIn.Delegates.CustomPropertyModifyData.Configuration">
+            <summary>
+            Configuration of custom property. Empty string for the file specific (generic) custom property
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.AddIn.Delegates.CustomPropertyModifyData.Value">
+            <summary>
+            Value of the custom property
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Delegates.CustomPropertyModifyDelegate">
+            <summary>
+            Delegate of <see cref="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.CustomPropertyModify"/> event
+            </summary>
+            <param name="docHandler">Document Handler which sends this notification</param>
+            <param name="modifications">Array of all modifications in custom properties</param>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Delegates.DimensionChangeDelegate">
+            <summary>
+            Delegate of <see cref="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.DimensionChange"/> event
+            </summary>
+            <param name="docHandler">Document Handler which sends this notification</param>
+            <param name="dispDim">Pointer to the changed <see href="http://help.solidworks.com/2012/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.idisplaydimension_properties.html">display dimension</see></param>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Delegates.RebuildDelegate">
+            <summary>
+            Delegate of <see cref="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.Rebuild"/> event
+            </summary>
+            <param name="docHandler">Document Handler which sends this notification</param>
+            <param name="state">Type of the rebuild operation</param>
+            <returns>Return false if <see cref="F:CodeStack.SwEx.AddIn.Enums.RebuildState_e.PreRebuild"/> to cancel rebuild operation</returns>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Delegates.ItemModifyDelegate">
+            <summary>
+            Delegate of <see cref="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.ItemModify"/> event
+            </summary>
+            <param name="docHandler">Document Handler which sends this notification</param>
+            <param name="action">Item modification type</param>
+            <param name="entType">Modified entity type as defined in <see href="http://help.solidworks.com/2017/english/api/swconst/SolidWorks.Interop.swconst~SolidWorks.Interop.swconst.swNotifyEntityType_e.html">swNotifyEntityType_e</see> enumeration</param>
+            <param name="name">Name of the item</param>
+            <param name="oldName">Old name of the item if <see cref="F:CodeStack.SwEx.AddIn.Enums.ItemModificationAction_e.PreRename"/> or <see cref="F:CodeStack.SwEx.AddIn.Enums.ItemModificationAction_e.Rename"/> operation</param>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Delegates.DocumentSaveDelegate">
+            <summary>
+            Delegate of <see cref="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.Save"/> event
+            </summary>
+            <param name="docHandler">Document Handler which sends this notification</param>
+            <param name="fileName">Full path to save the file</param>
+            <param name="state">Type of the save operation</param>
+            <returns>Return false within the <see cref="F:CodeStack.SwEx.AddIn.Enums.SaveState_e.PreSave"/> to cancel the save operation</returns>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Delegates.ObjectSelectionDelegate">
+            <summary>
+            Delegate of <see cref="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.Selection"/> event
+            </summary>
+            <param name="docHandler">Document Handler which sends this notification</param>
+            <param name="selType">Type of the selected object as defined in <see href="http://help.solidworks.com/2014/english/api/swconst/SolidWorks.Interop.swconst~SolidWorks.Interop.swconst.swSelectType_e.html">swSelectType_e</see> enumeration</param>
+            <param name="state">Type of the selection operation</param>
+            <returns>Return false if <see cref="F:CodeStack.SwEx.AddIn.Enums.SelectionState_e.UserPreSelect"/> to cancel the user selection</returns>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Delegates.DocumentStateChangedDelegate">
+            <summary>
+            Delegate of <see cref="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.Initialized"/>, <see cref="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.Activated"/>, <see cref="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.Destroyed"/> event,
+            </summary>
+            <param name="docHandler">Document Handler which sends this notification</param>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Delegates.EnableMethodDelegate`1">
+            <summary>
+            Method handler to provide the custom enable command behavior
+            </summary>
+            <typeparam name="TCmdEnum">Command defined in the enumerator</typeparam>
+            <param name="cmd">Command id</param>
+            <param name="state">State of the command</param>
+            <remarks>State passed to this method is already assigned based on the value of <see cref="P:CodeStack.SwEx.AddIn.Attributes.CommandItemInfoAttribute.SupportedWorkspaces"/> options,
+            However this method allows to reset the state based on custom logic (e.g. disable if no elements selected in the graphics view)</remarks>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Enums.Access3rdPartyDataState_e">
+            <summary>
+            Types of the access to the 3rd party data storage
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.Access3rdPartyDataState_e.StorageRead">
+            <summary>
+            Read the data from the third party storage via <see cref="M:SolidWorks.Interop.sldworks.ModelDocExtension.Access3rdPartyStorageStore(SolidWorks.Interop.sldworks.IModelDoc2,System.String,System.Boolean)"/> method
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.Access3rdPartyDataState_e.StorageWrite">
+            <summary>
+            Save the data from the third party storage via <see cref="M:SolidWorks.Interop.sldworks.ModelDocExtension.Access3rdPartyStorageStore(SolidWorks.Interop.sldworks.IModelDoc2,System.String,System.Boolean)"/> method
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.Access3rdPartyDataState_e.StreamRead">
+            <summary>
+            Read the data from the 3rd party stream via <see cref="M:SolidWorks.Interop.sldworks.ModelDocExtension.Access3rdPartyStream(SolidWorks.Interop.sldworks.IModelDoc2,System.String,System.Boolean)"/>
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.Access3rdPartyDataState_e.StreamWrite">
+            <summary>
+            Save the data from the 3rd party stream via <see cref="M:SolidWorks.Interop.sldworks.ModelDocExtension.Access3rdPartyStream(SolidWorks.Interop.sldworks.IModelDoc2,System.String,System.Boolean)"/>
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Enums.ConfigurationChangeState_e">
+            <summary>
+            States of configuration or sheet changes
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.ConfigurationChangeState_e.PreActivate">
+            <summary>
+            Configuration is about to be activated
+            </summary>
+            <remarks>Pre activate for drawing sheets supported from SOLIDWORKS 2013 (revision 21.0)</remarks>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.ConfigurationChangeState_e.PostActivate">
+            <summary>
+            Configuration has been activated
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Enums.CustomPropertyChangeAction_e">
+            <summary>
+            Type of the modification action on custom properties
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.CustomPropertyChangeAction_e.Add">
+            <summary>
+            New custom property is added
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.CustomPropertyChangeAction_e.Delete">
+            <summary>
+            Custom property is removed
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.CustomPropertyChangeAction_e.Modify">
+            <summary>
+            Custom property value is changed
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Enums.ItemModificationAction_e">
+            <summary>
+            Type of the modification action of the item
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.ItemModificationAction_e.Add">
+            <summary>
+            New item added
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.ItemModificationAction_e.Delete">
+            <summary>
+            Item has been deleted
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.ItemModificationAction_e.PreDelete">
+            <summary>
+            Item is about to be deleted
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.ItemModificationAction_e.Rename">
+            <summary>
+            Item has been renamed
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.ItemModificationAction_e.PreRename">
+            <summary>
+            Item is about to be renamed
+            </summary>
+            <remarks>This option is supported from SOLIDWORKS 2016 (revision 24.0)</remarks>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Enums.RebuildState_e">
+            <summary>
+            State of the rebuild operation
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.RebuildState_e.PreRebuild">
+            <summary>
+            Document is about to be rebuilt
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.RebuildState_e.PostRebuild">
+            <summary>
+            Document has been rebuilt
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Enums.SaveState_e">
+            <summary>
+            Stage of saving the document
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.SaveState_e.AutoSave">
+            <summary>
+            Automatic save
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.SaveState_e.SaveAs">
+            <summary>
+            Saving document as new file
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.SaveState_e.PreSave">
+            <summary>
+            Document is about to be saved
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.SaveState_e.PostSave">
+            <summary>
+            Document has been saved
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.SaveState_e.PostCancel">
+            <summary>
+            After document saving has been canceled
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Enums.SelectionState_e">
+            <summary>
+            State of the object selection
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.SelectionState_e.NewSelection">
+            <summary>
+            New selection (user or via API)
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.SelectionState_e.UserPreSelect">
+            <summary>
+            Use is about to select the object
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.SelectionState_e.UserPostSelect">
+            <summary>
+            User has selected the object
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.SelectionState_e.ClearSelection">
+            <summary>
+            Selection is cleared
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Enums.CommandItemEnableState_e">
+            <summary>
+            Enumerates the possible states of the command (toolbar button or menu item) in SOLIDWORKS
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.CommandItemEnableState_e.DeselectDisable">
+            <summary>
+            Deselects and disables the item
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.CommandItemEnableState_e.DeselectEnable">
+            <summary>
+            Deselects and enables the item; this is the default state if no update function is specified
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.CommandItemEnableState_e.SelectDisable">
+            <summary>
+            Selects and disables the item
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.CommandItemEnableState_e.SelectEnable">
+            <summary>
+            Selects and enables the item 
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Enums.swWorkspaceTypes_e">
+            <summary>
+            Provides the enumeration of various workspaces in SOLIDWORKS
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.swWorkspaceTypes_e.NoDocuments">
+            <summary>
+            Environment when no documents are loaded (e.g. new session of SOLIDWORKS)
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.swWorkspaceTypes_e.Part">
+            <summary>
+            Part document (*.sldprt)
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.swWorkspaceTypes_e.Assembly">
+            <summary>
+            Assembly document (*.sldasm)
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.swWorkspaceTypes_e.Drawing">
+            <summary>
+            Drawing document (*.slddrw)
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.swWorkspaceTypes_e.AllDocuments">
+            <summary>
+            All SOLIDWORKS documents (*.sldprt, *.sldasm, *.slddrw)
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.AddIn.Enums.swWorkspaceTypes_e.All">
+            <summary>
+            All environments
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Core.DocumentHandler">
+            <summary>
+            Specific implementation of document handler which exposes document lifecycle events
+            </summary>
+        </member>
+        <member name="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.Initialized">
+            <summary>
+            Raised when document is initialized
+            </summary>
+            <remarks>Initialization happens when model loads into a memory (e.g. opening the file, unsuppressing component, resolving component from lightweight mode)</remarks>
+        </member>
+        <member name="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.Activated">
+            <summary>
+            Raised when model window is activated
+            </summary>
+        </member>
+        <member name="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.Destroyed">
+            <summary>
+            Raised when document is closed
+            </summary>
+            <remarks>This event will also be raised when add-in unloads but documents are still open</remarks>
+        </member>
+        <member name="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.Save">
+            <summary>
+            Raised when document is saving or saved (including auto saving)
+            </summary>
+        </member>
+        <member name="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.Selection">
+            <summary>
+            Raised when object is selected in SOLIDWORKS (either by the user or API)
+            </summary>
+        </member>
+        <member name="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.Access3rdPartyData">
+            <summary>
+            Raised when 3rd party storage and stream are ready for access (reading or writing)
+            </summary>
+        </member>
+        <member name="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.CustomPropertyModify">
+            <summary>
+            Raised when custom properties modified (added, removed or changed) from the UI or API
+            </summary>
+        </member>
+        <member name="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.ItemModify">
+            <summary>
+            Raised when item (e.g. feature, configuration) is modified in the Feature Manager Tree (e.g. renamed, added or removed)
+            </summary>
+        </member>
+        <member name="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.ConfigurationChange">
+            <summary>
+            Raised when configuration is changed in part or assembly or sheet is activated in the drawing
+            </summary>
+        </member>
+        <member name="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.Rebuild">
+            <summary>
+            Raised when model is regenerated either as force regeneration or parametric regeneration or after rollback
+            </summary>
+        </member>
+        <member name="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.DimensionChange">
+            <summary>
+            Raised when dimension value is changed in the model from the Dimension property page
+            </summary>
+            <remarks>This event is not raised when dimension is changed via Instant3D</remarks>
+        </member>
+        <member name="P:CodeStack.SwEx.AddIn.Core.DocumentHandler.App">
+            <summary>
+            Pointer to the SOLIDWORKS application
+            </summary>
+            <remarks>This pointer assigned before <see cref="M:CodeStack.SwEx.AddIn.Core.DocumentHandler.OnInit"/> method or <see cref="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.Initialized"/> event</remarks>
+        </member>
+        <member name="P:CodeStack.SwEx.AddIn.Core.DocumentHandler.Model">
+            <summary>
+            Pointer to the model of this handler
+            </summary>
+            <remarks>This pointer assigned before <see cref="M:CodeStack.SwEx.AddIn.Core.DocumentHandler.OnInit"/> method or <see cref="E:CodeStack.SwEx.AddIn.Core.DocumentHandler.Initialized"/> event</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Core.DocumentHandler.OnInit">
+            <summary>
+            Override to handle the initialization of the document
+            </summary>
+            <remarks>This method is called when document is opened or loaded with assembly or drawing</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Core.DocumentHandler.OnActivate">
+            <summary>
+            Override to handle the activation of the document (when it is opened in its own window)
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.Core.DocumentHandler.OnDestroy">
+            <summary>
+            Override to dispose the resources
+            </summary>
+            <remarks>Invoked when document has been destroyed</remarks>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Exceptions.CallbackNotSpecifiedException">
+            <summary>
+            Indicates that the callback is not specified for the commands group
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Exceptions.GroupIdAlreadyExistsException">
+            <summary>
+            Exception indicates that specified group user id is already used
+            </summary>
+            <remarks>This might happen when <see cref="T:CodeStack.SwEx.AddIn.Attributes.CommandGroupInfoAttribute"/> explicitly specifies duplicate user ids.
+            This can also happen that not all commands have this attribute assigned explicitly.
+            In this case framework is attempting to generate next user id which might be already taken by explicit declaration</remarks>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Exceptions.InvalidMenuToolbarOptionsException">
+            <summary>
+            Indicates that the command doesn't have either menu or toolbar option set
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Helpers.EventsHandler`1">
+            <summary>
+            Wrapper for lazy handling the events
+            </summary>
+            <typeparam name="TDel">Event delegate</typeparam>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.AddIn.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.AddIn.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.AddIn.Properties.Resources.swex_addin_default">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.AddIn.SwAddInEx">
+            <inheritdoc/>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.SwAddInEx.RegisterFunction(System.Type)">
+            <summary>
+            COM Registration entry function
+            </summary>
+            <param name="t">Type</param>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.SwAddInEx.UnregisterFunction(System.Type)">
+            <summary>
+            COM Unregistration entry function
+            </summary>
+            <param name="t">Type</param>
+        </member>
+        <member name="P:CodeStack.SwEx.AddIn.SwAddInEx.App">
+            <summary>
+            Pointer to SOLIDWORKS application
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.AddIn.SwAddInEx.CmdMgr">
+            <summary>
+            Pointer to command group which holding the add-in commands
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.AddIn.SwAddInEx.AddInCookie">
+            <summary>
+            Add-ins cookie (id)
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.SwAddInEx.ConnectToSW(System.Object,System.Int32)">
+            <summary>SOLIDWORKS add-in entry function</summary>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.SwAddInEx.OnCommandClick(System.String)">
+            <summary>
+            Command click callback
+            </summary>
+            <param name="cmdId">Command tag</param>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.SwAddInEx.OnCommandEnable(System.String)">
+            <summary>
+            Command enable callback
+            </summary>
+            <param name="cmdId">Command tag</param>
+            <returns>State</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.SwAddInEx.DisconnectFromSW">
+            <summary>
+            SOLIDWORKS unload add-in callback
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.SwAddInEx.OnConnect">
+            <inheritdoc/>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.SwAddInEx.OnDisconnect">
+            <inheritdoc/>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.SwAddInEx.AddCommandGroup``1(System.Action{``0},CodeStack.SwEx.AddIn.Delegates.EnableMethodDelegate{``0})">
+            <inheritdoc/>
+            <exception cref="T:CodeStack.SwEx.AddIn.Exceptions.GroupIdAlreadyExistsException"/>
+            <exception cref="T:CodeStack.SwEx.AddIn.Exceptions.InvalidMenuToolbarOptionsException"/>
+            <exception cref="T:System.ArgumentException"/>
+            <exception cref="T:CodeStack.SwEx.AddIn.Exceptions.CallbackNotSpecifiedException"/>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.SwAddInEx.AddContextMenu``1(System.Action{``0},SolidWorks.Interop.swconst.swSelectType_e,CodeStack.SwEx.AddIn.Delegates.EnableMethodDelegate{``0})">
+            <inheritdoc/>
+            <exception cref="T:CodeStack.SwEx.AddIn.Exceptions.GroupIdAlreadyExistsException"/>
+            <exception cref="T:CodeStack.SwEx.AddIn.Exceptions.InvalidMenuToolbarOptionsException"/>
+            <exception cref="T:System.ArgumentException"/>
+            <exception cref="T:CodeStack.SwEx.AddIn.Exceptions.CallbackNotSpecifiedException"/>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.SwAddInEx.CreateDocumentsHandler``1">
+            <inheritdoc/>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.SwAddInEx.CreateDocumentsHandler">
+            <inheritdoc/>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.SwAddInEx.CreateTaskPane``1(``0@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CodeStack.SwEx.AddIn.SwAddInEx.CreateTaskPane``2(System.Action{``1},``0@)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SolidWorks.Interop.sldworks.ModelDocExtension">
+            <summary>
+            Provides extension methods for SOLIDWORKS document
+            </summary>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.ModelDocExtension.Access3rdPartyStream(SolidWorks.Interop.sldworks.IModelDoc2,System.String,System.Boolean)">
+            <summary>
+            Access the 3rd party storage (stream) for reading or writing
+            </summary>
+            <param name="model">Pointer to document</param>
+            <param name="name">Name of the stream</param>
+            <param name="write">True to open for writing, false to open for reading</param>
+            <returns>Pointer to the stream handler</returns>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.ModelDocExtension.Access3rdPartyStorageStore(SolidWorks.Interop.sldworks.IModelDoc2,System.String,System.Boolean)">
+            <summary>
+            Access the 3rd party storage store for reading or writing
+            </summary>
+            <param name="model">Pointer to document</param>
+            <param name="name">Name of the stream</param>
+            <param name="write">True to open for writing, false to open for reading</param>
+            <returns>Pointer to the store handler</returns>
+        </member>
+    </members>
+</doc>

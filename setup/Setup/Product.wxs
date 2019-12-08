@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="Setup" Language="1033" Version="1.0.0.0" Manufacturer="ThreeSixNine" UpgradeCode="9d86e457-d7b4-46b6-b68a-87d19fe3f502">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes" />
+
+    <UIRef Id="WixUI_InstallDir" />
+    <UIRef Id="WixUI_Common" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <!--<Icon Id="MainIconId" SourceFile="Resources\icon.ico"/>-->
+    <!--<Property Id="ARPPRODUCTICON" Value="MainIconId" />-->
+    <!--<WixVariable Id="WixUIBannerBmp" Value="Reasources\banner.bmp" />-->
+    <!--<WixVariable Id="WixUIDialogBmp" Value="Resources\dialog.bmp" />-->
+    <!--<WixVariable Id="WixUILicenseRtf" Value="Resources\eula.rtf" />-->
+    
+		<Feature Id="ProductFeature" Title="Setup" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="AddInComRegGroup"/>
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFiles64Folder">
+        <Directory Id="ThreeSixNine">
+				  <Directory Id="INSTALLFOLDER" Name="Jack It AddIn" />
+        </Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+
+      <Component Id="Reg" Guid="{199ACD71-F44A-452B-BEAB-43BDA2CAC6E2}">
+        <RegistryValue Root="HKCU" Key="Software\Solidworks\AddInsStartup\{6A806C14-F5FB-411B-9B63-9AC080F656AC}" Value="1" Type="integer" Action="write" />
+        <RegistryValue Root="HKLM" Key="Software\Solidworks\Addins\{6A806C14-F5FB-411B-9B63-9AC080F656AC}" Value="0" Type="integer" Action ="write" />
+        <RegistryValue Root="HKLM" Key="Software\Solidworks\Addins\{6A806C14-F5FB-411B-9B63-9AC080F656AC}" Name="Description" Value="Experimental Solidwork Features" Type="string" Action="write" />
+        <RegistryValue Root="HKLM" Key="Software\Solidworks\Addins\{6A806C14-F5FB-411B-9B63-9AC080F656AC}" Name="Title" Value="Jack It" Type="string" Action="write" />
+      </Component>
+      
+      <Component Id="interops" Guid="{922C0A21-C6AB-4273-8AE7-5AE790EFE1E9}">
+        <File Id='SolidWorks.Interop.sldworks.dllID' Name='SolidWorks.Interop.sldworks.dll' Source='$(var.SourceOutDir)\SolidWorks.Interop.sldworks.dll' />
+        <File Id='SolidWorks.Interop.swconst.dllID' Name='SolidWorks.Interop.swconst.dll' Source='$(var.SourceOutDir)\SolidWorks.Interop.swconst.dll' />
+        <File Id='SolidWorks.Interop.swpublished.dllID' Name='SolidWorks.Interop.swpublished.dll' Source='$(var.SourceOutDir)\SolidWorks.Interop.swpublished.dll' />
+        <File Id='SolidWorksTools.dllID' Name='SolidWorksTools.dll' Source='$(var.SourceOutDir)\SolidWorksTools.dll' />
+      </Component>
+
+      <Component Id="files" Guid="{92FDB26C-1D00-447E-9136-0CB31AC0D204}">
+        <File Id='CodeStack.SwEx.AddIn.dllID' Name='CodeStack.SwEx.AddIn.dll' Source ='$(var.SourceOutDir)\CodeStack.SwEx.AddIn.dll' />
+        <File Id='CodeStack.SwEx.Common.dllID' Name='CodeStack.SwEx.Common.dll' Source ='$(var.SourceOutDir)\CodeStack.SwEx.Common.dll' />
+        <File Id='CodeStack.SwEx.MacroFeature.dllID' Name='CodeStack.SwEx.MacroFeature.dll' Source ='$(var.SourceOutDir)\CodeStack.SwEx.MacroFeature.dll' />
+        <File Id='CodeStack.SwEx.PMPage.dllID' Name='CodeStack.SwEx.PMPage.dll' Source ='$(var.SourceOutDir)\CodeStack.SwEx.PMPage.dll' />
+        <File Id='Xarial.VPages.Framework.dllID' Name='Xarial.VPages.Framework.dll' Source ='$(var.SourceOutDir)\Xarial.VPages.Framework.dll' />
+        <File Id='JackIt.tlbID' Name='JackIt.tlb' Source ='$(var.SourceOutDir)\JackIt.tlb' />
+        <!--<File Id='FileNameID' Name='FileName' Source ='$(var.SourceOutDir)\FileName' />-->
+        
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

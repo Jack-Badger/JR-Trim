@@ -1,0 +1,447 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CodeStack.SwEx.Common</name>
+    </assembly>
+    <members>
+        <member name="T:CodeStack.SwEx.Common.Attributes.IconAttribute">
+            <summary>
+            General icon for any controls or objects
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.Common.Attributes.IconAttribute.Icon">
+            <summary>
+            Image assigned to this icon
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Attributes.IconAttribute.#ctor(System.Type,System.String)">
+            <param name="resType">Type of the static class (usually Resources)</param>
+            <param name="masterResName">Resource name of the master icon</param>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Attributes.LoggerOptionsAttribute">
+            <summary>
+            Specifies the options for the logger
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Attributes.LoggerOptionsAttribute.#ctor(System.Boolean,System.String,CodeStack.SwEx.Common.Diagnostics.LoggerType_e)">
+            <summary>
+            Specifies the logger type and option to log call stack
+            </summary>
+            <param name="logCallStack">True to include call stack into the exception log message</param>
+            <param name="name">Name of the logger</param>
+            <param name="type">Type of logger</param>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Attributes.SummaryAttribute">
+            <summary>
+            Decorates the description for the element (e.g. command, user control, object etc.)
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Attributes.SummaryAttribute.#ctor(System.String)">
+            <summary>
+            Constructor for element summary
+            </summary>
+            <param name="description">Description of the element</param>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Attributes.SummaryAttribute.#ctor(System.Type,System.String)">
+            <inheritdoc cref="M:CodeStack.SwEx.Common.Attributes.SummaryAttribute.#ctor(System.String)"/>
+            <param name="resType">Type of the static class (usually Resources)</param>
+            <param name="descriptionResName">Resource name of the string for display name</param>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Attributes.TitleAttribute">
+            <summary>
+            Decorates the display name for the element (e.g. command, user control, object etc.)
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Attributes.TitleAttribute.#ctor(System.String)">
+            <summary>
+            Constructor for element title
+            </summary>
+            <param name="dispName">Display name of the element</param>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Attributes.TitleAttribute.#ctor(System.Type,System.String)">
+            <inheritdoc cref="M:CodeStack.SwEx.Common.Attributes.TitleAttribute.#ctor(System.String)"/>
+            <param name="resType">Type of the static class (usually Resources)</param>
+            <param name="dispNameResName">Resource name of the string for display name</param>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Base.IIconsConverter">
+            <summary>
+            Utility for converting the different types of icons with an option to scale
+            or generate different sets for high and low resolutions
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Base.IIconsConverter.ConvertIconsGroup(CodeStack.SwEx.Common.Icons.IIcon[],System.Boolean)">
+            <summary>
+            Converts the group of icons and stacks them horizontally
+            </summary>
+            <param name="icons">List of icons to convert</param>
+            <param name="highRes">True to generate high resolution icons</param>
+            <returns>Full paths to generated icon images</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Base.IIconsConverter.ConvertIcon(CodeStack.SwEx.Common.Icons.IIcon,System.Boolean)">
+            <summary>
+            Converts icon into the required size and quality and saves it on disk
+            </summary>
+            <param name="icon">Icon to convert</param>
+            <param name="highRes">True to generate high resolution icon</param>
+            <returns>Path to generated icons</returns>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Base.IModule">
+            <summary>
+            Base interface for SwEx modules
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.Common.Base.IModule.Logger">
+            <summary>
+            Logger for this module
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Diagnostics.ILogger">
+            <summary>
+            Logs the trace messages
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.Common.Diagnostics.ILogger.Category">
+            <summary>
+            Log category
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.Common.Diagnostics.ILogger.LogStackTrace">
+            <summary>
+            Indicates if the messages should include call stack
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Diagnostics.ILogger.Log(System.String)">
+            <summary>
+            Logs message
+            </summary>
+            <param name="msg">Message</param>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Diagnostics.ILogger.Log(System.Exception)">
+            <summary>
+            Logs error
+            </summary>
+            <param name="err">Exception</param>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Diagnostics.LoggerBase">
+            <inheritdoc/>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Diagnostics.LoggerBase.ParseExceptionLog(System.Exception,System.Text.StringBuilder,System.Boolean)">
+            <remarks>This call logs all exception (including inner) and call stack</remarks>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Diagnostics.LoggerFactory">
+            <summary>
+            Factory for creating loggers
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Diagnostics.LoggerFactory.Create(System.String,System.Boolean,CodeStack.SwEx.Common.Diagnostics.LoggerType_e)">
+            <summary>
+            Creates a logger with specified parameters
+            </summary>
+            <param name="category">Logger category</param>
+            <param name="logCallStack">True to log call stack</param>
+            <param name="type">Type of the logger</param>
+            <returns>New logger instance</returns>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Enums.SwVersion_e">
+            <summary>
+            Major version of SOLIDWORKS. Use <see cref="M:SolidWorks.Interop.sldworks.SldWorksCommonEx.GetVersion(SolidWorks.Interop.sldworks.ISldWorks)"/> to get the value
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Exceptions.IconTransparencyMismatchException">
+            <summary>
+            Exception indicates that the transparency key <see cref="P:CodeStack.SwEx.Common.Icons.IIcon.TransparencyKey"/> is different for
+            some icons in the icons group passed to <see cref="M:CodeStack.SwEx.Common.Icons.IconsConverter.ConvertIconsGroup(CodeStack.SwEx.Common.Icons.IIcon[],System.Boolean)"/>
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Icons.IconsConverter">
+            <inheritdoc/>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Icons.IconsConverter.IconData">
+            <summary>
+            Icon data
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.Common.Icons.IconsConverter.IconData.SourceIcon">
+            <summary>
+            Source image in original format (not scaled, not modified)
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.Common.Icons.IconsConverter.IconData.TargetSize">
+            <summary>
+            Required target size for the image
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.Common.Icons.IconsConverter.IconData.TargetIconPath">
+            <summary>
+            Path where the icon needs to be saved
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Icons.IconsConverter.ColorReplacerDelegate">
+            <summary>
+            Custom handler for the image replace function <see cref="M:CodeStack.SwEx.Common.Icons.IconsConverter.ReplaceColor(System.Drawing.Image,CodeStack.SwEx.Common.Icons.IconsConverter.ColorReplacerDelegate)"/>
+            </summary>
+            <param name="r">Red component of pixel</param>
+            <param name="g">Green component of pixel</param>
+            <param name="b">Blue component of pixel</param>
+            <param name="a">Alpha component of pixel</param>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Icons.IconsConverter.ReplaceColor(System.Drawing.Image,CodeStack.SwEx.Common.Icons.IconsConverter.ColorReplacerDelegate)">
+            <summary>
+            Replaces the pixels in the image based on the custom replacer handler
+            </summary>
+            <param name="icon">Image to replace</param>
+            <param name="replacer">Handler to replace which is called for each pixel</param>
+            <returns>Resulting image</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Icons.IconsConverter.#ctor(System.String,System.Boolean)">
+            <param name="iconsDir">Directory to store the icons</param>
+            <param name="disposeIcons">True to remove the icons when class is disposed</param>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Icons.IconsConverter.ConvertIconsGroup(CodeStack.SwEx.Common.Icons.IIcon[],System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Icons.IconsConverter.ConvertIcon(CodeStack.SwEx.Common.Icons.IIcon,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Icons.IconsConverter.Dispose">
+            <summary>
+            Disposing temp icon files
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Icons.IconSizeInfo">
+            <summary>
+            Descriptor for the icon of a specific type
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Icons.IconSizeInfo.CreateFileName(System.String,System.Drawing.Size)">
+            <summary>
+            Generates the file name for the icon
+            </summary>
+            <param name="baseName">Base name for the icon</param>
+            <param name="targetSize">Required icon size</param>
+            <returns>Suggested file name</returns>
+        </member>
+        <member name="P:CodeStack.SwEx.Common.Icons.IconSizeInfo.SourceImage">
+            <summary>
+            Original image of the icon
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.Common.Icons.IconSizeInfo.TargetSize">
+            <summary>
+            Required size of the icon
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.Common.Icons.IconSizeInfo.Name">
+            <summary>
+            Base name of the icon
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Icons.IconSizeInfo.#ctor(System.Drawing.Image,System.Drawing.Size,System.String)">
+            <summary>
+            Icon size constructor with source image, target size and optional base name
+            </summary>
+            <param name="srcImage">Source image</param>
+            <param name="targetSize">Target size of the image</param>
+            <param name="baseName">Base name of the image</param>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Icons.IIcon">
+            <summary>
+            Represents the specific icon descriptor
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.Common.Icons.IIcon.TransparencyKey">
+            <summary>
+            Transparency key to be applied to transparent color
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Icons.IIcon.GetIconSizes">
+            <summary>
+            List of required icon sizes
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Icons.IIcon.GetHighResolutionIconSizes">
+            <summary>
+            List of required icon size for high definition resolution
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Reflection.AssemblyExtension.TryGetAttribute``1(System.Reflection.Assembly,System.Action{``0})">
+            <summary>
+            Tries to get attribute from the assembly
+            </summary>
+            <typeparam name="TAtt">Type of attribute to get</typeparam>
+            <param name="assm">Assembly</param>
+            <param name="attProc">Action to process attribute</param>
+            <returns>True if attribute exists</returns>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Reflection.EnumExtension">
+            <summary>
+            Provides extension classes for the <see cref="T:System.Enum"/> enumerator
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Reflection.EnumExtension.GetAttribute``1(System.Enum)">
+            <summary>
+            Get the specified attribute from the enumerator field
+            </summary>
+            <typeparam name="TAtt">Attribute type</typeparam>
+            <param name="enumer">Enumerator field</param>
+            <returns>Attribute</returns>
+            <exception cref="T:System.NullReferenceException"/>
+            <remarks>This method throws an exception if attribute is missing</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Reflection.EnumExtension.TryGetAttribute``1(System.Enum)">
+            <summary>
+            Attempts to the attribute from enumeration
+            </summary>
+            <typeparam name="TAtt">Type of the attribute</typeparam>
+            <param name="type">Type to get attribute from</param>
+            <returns>Attribute or null if not found</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Reflection.EnumExtension.TryGetAttribute``1(System.Enum,System.Action{``0})">
+            <summary>
+            Tries to get attribute from the enumeration
+            </summary>
+            <typeparam name="TAtt">Type of attribute to get</typeparam>
+            <param name="enumer">Enumerator value</param>
+            <param name="attProc">Action to process attribute</param>
+            <returns>True if attribute exists</returns>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Reflection.MemberInfoExtension">
+            <summary>
+            Provides extension methods for the <see cref="T:System.Reflection.MemberInfo"/>
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Reflection.MemberInfoExtension.TryGetAttribute``1(System.Reflection.MemberInfo)">
+            <summary>
+            Attempts to get the attribute from the class member
+            </summary>
+            <typeparam name="TAtt">Attribute type</typeparam>
+            <param name="membInfo">Pointer to member (field or property)</param>
+            <returns>Pointer to attribute or null if not found</returns>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Reflection.ResourceHelper">
+            <summary>
+            Helper class to work with resources
+            </summary>
+            <remarks>Use this method in attributes to provide the reference to the data from the resources (i.e. text and image)</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Reflection.ResourceHelper.GetResource``1(System.Type,System.String)">
+            <summary>
+            Gets the specified resource by name
+            </summary>
+            <typeparam name="T">Type of the resource</typeparam>
+            <param name="resType">Type of the resource class (usually Resources)</param>
+            <param name="resName">Name of the resource</param>
+            <returns>Value of the resource</returns>
+            <remarks>Use nameof operator to get the resource name avoiding using the 'magic' strings</remarks>
+        </member>
+        <member name="T:CodeStack.SwEx.Common.Reflection.TypeExtension">
+            <summary>
+            Provides the extension methods for <see cref="T:System.Type"/>
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Reflection.TypeExtension.GetAttribute``1(System.Type)">
+            <summary>
+            Get the specified attribute from the type, all parent types and interfaces
+            </summary>
+            <typeparam name="TAtt">Attribute type</typeparam>
+            <param name="type">Type</param>
+            <returns>Attribute</returns>
+            <exception cref="T:System.NullReferenceException"/>
+            <remarks>This method throws an exception if attribute is missing</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Reflection.TypeExtension.TryGetAttribute``1(System.Type)">
+            <summary>
+            Attempts to the attribute from type, all parent types and interfaces
+            </summary>
+            <typeparam name="TAtt">Type of the attribute</typeparam>
+            <param name="type">Type to get attribute from</param>
+            <returns>Attribute or null if not found</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Reflection.TypeExtension.TryGetAttribute``1(System.Type,``0@)">
+            <summary>
+            Attempts to get the attribute from the type, all parent types and interfaces
+            </summary>
+            <typeparam name="TAtt">Type of the attribute</typeparam>
+            <param name="type">Type to get attribute from</param>
+            <param name="att">Attribute of the type</param>
+            <returns>True if attribute exists</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Reflection.TypeExtension.TryGetAttribute``1(System.Type,System.Action{``0})">
+            <summary>
+            Attempts to get the attribute from the type, all parent types and interfaces
+            </summary>
+            <typeparam name="TAtt">Type of the attribute</typeparam>
+            <param name="type">Type to get attribute from</param>
+            <param name="attProc">Handler to process the attribute</param>
+            <returns>True if attribute exists</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Reflection.TypeExtension.IsAssignableToGenericType(System.Type,System.Type)">
+            <summary>
+            Checks if this type can be assigned to the generic type
+            </summary>
+            <param name="thisType">Type</param>
+            <param name="genericType">Base generic type (i.e. MyGenericType&lt;&gt;)</param>
+            <returns>True if type is assignable to generic</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Reflection.TypeExtension.GetArgumentsOfGenericType(System.Type,System.Type)">
+            <summary>
+            Gets the specific arguments of this type in relation to specified generic type
+            </summary>
+            <param name="thisType">This type which must be assignable to the specified genericType</param>
+            <param name="genericType">Generic type</param>
+            <returns>Arguments</returns>
+            <remarks>For example this method called on List&lt;string&gt; where the genericType is IEnumerable&lt;&gt; would return string</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Reflection.TypeExtension.TryFindGenericType(System.Type,System.Type)">
+            <summary>
+            Finds the specific generic type to a specified base generic type
+            </summary>
+            <param name="thisType">This type</param>
+            <param name="genericType">Base generic type</param>
+            <returns>Specific generic type or null if not found</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Reflection.TypeExtension.GetProgId(System.Type)">
+            <summary>
+            Returns the COM ProgId of a type
+            </summary>
+            <param name="type">Input type</param>
+            <returns>COM Prog id</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.Common.Reflection.TypeExtension.IsComVisible(System.Type)">
+            <summary>
+            Identifies if type is COM visible
+            </summary>
+            <param name="type">Type to check</param>
+            <returns>True if type is COM visible</returns>
+        </member>
+        <member name="T:SolidWorks.Interop.sldworks.SldWorksCommonEx">
+            <summary>
+            Collection of common extension methods to use in the SwEx framework
+            </summary>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.SldWorksCommonEx.GetVersion(SolidWorks.Interop.sldworks.ISldWorks,System.Int32@,System.Int32@)">
+            <summary>
+            Returns the major version of SOLIDWORKS application
+            </summary>
+            <param name="app">Pointer to application to return version from</param>
+            <param name="servicePack">Version of Service Pack</param>
+            <param name="servicePackRev">Revision of Service Pack</param>
+            <returns>Major version of the application</returns>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.SldWorksCommonEx.GetVersion(SolidWorks.Interop.sldworks.ISldWorks)">
+            <inheritdoc cref="M:SolidWorks.Interop.sldworks.SldWorksCommonEx.GetVersion(SolidWorks.Interop.sldworks.ISldWorks,System.Int32@,System.Int32@)"/>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.SldWorksCommonEx.IsVersionNewerOrEqual(SolidWorks.Interop.sldworks.ISldWorks,CodeStack.SwEx.Common.Enums.SwVersion_e,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Checks if the version of the SOLIDWORKS is newer or equal to the specified parameters
+            </summary>
+            <param name="app">Current SOLIDWORKS application</param>
+            <param name="version">Target minimum supported version of SOLIDWORKS</param>
+            <param name="servicePack">Target minimum service pack version or null to ignore</param>
+            <param name="servicePackRev">Target minimum revision of service pack version or null to ignore</param>
+            <returns>True of version of the SOLIDWORKS is the same or newer</returns>
+        </member>
+    </members>
+</doc>

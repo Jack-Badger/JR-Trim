@@ -1,0 +1,538 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CodeStack.SwEx.PMPage</name>
+    </assembly>
+    <members>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.ControlAttributionAttribute">
+            <summary>
+            Provides additional attribution options (i.e. icons, labels, tooltips etc.) for all controls
+            </summary>
+            <remarks>Can be applied to any property which is bound to the property manager page control</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.ControlAttributionAttribute.#ctor(SolidWorks.Interop.swconst.swControlBitmapLabelType_e)">
+            <summary>Constructor allowing specify the standard icon</summary>
+            <param name="standardIcon">Control label as defined in <see href="http://help.solidworks.com/2016/english/api/swconst/solidworks.interop.swconst~solidworks.interop.swconst.swcontrolbitmaplabeltype_e.html">swControlBitmapLabelType_e Enumeration</see></param>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.ControlAttributionAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            Constructor allowing to specify custom icon from the resources
+            </summary>
+            <param name="resType"><token>resType</token></param>
+            <param name="iconResName">Image resource name referencing the icon</param>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.ControlAttributionAttribute.#ctor(System.Type,System.String,System.String)">
+            <inheritdoc cref="M:CodeStack.SwEx.PMPage.Attributes.ControlAttributionAttribute.#ctor(System.Type,System.String)"/>
+            <param name="maskResName">Image resource name referencing the icon mask</param>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.ControlOptionsAttribute">
+            <summary>
+            Generic options for all controls
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.ControlOptionsAttribute.#ctor(SolidWorks.Interop.swconst.swAddControlOptions_e,SolidWorks.Interop.swconst.swPropertyManagerPageControlLeftAlign_e,System.Drawing.KnownColor,System.Drawing.KnownColor,System.Int16,System.Int16,System.Int16,System.Int16,SolidWorks.Interop.swconst.swPropMgrPageControlOnResizeOptions_e)">
+            <summary>
+            Constructor allowing to specify control common parameters
+            </summary>
+            <param name="opts">Generic control options as defined in <see href="http://help.solidworks.com/2016/english/api/swconst/solidworks.interop.swconst~solidworks.interop.swconst.swaddcontroloptions_e.html">swAddControlOptions_e Enumeration</see></param>
+            <param name="align">Control alignment options as defined in <see href="http://help.solidworks.com/2016/english/api/swconst/solidworks.interop.swconst~solidworks.interop.swconst.swpropertymanagerpagecontrolleftalign_e.html">swPropertyManagerPageControlLeftAlign_e Enumeration</see></param>
+            <param name="backgroundColor">Background color of control. Use 0 for default color</param>
+            <param name="textColor">Color of the text on the control. Use 0 for default color</param>
+            <param name="left">Left alignment of the control. Use -1 for default alignment</param>
+            <param name="top">Top alignment of the control. Use -1 to align the control under the previous control</param>
+            <param name="width">Width of the control. Use -1 for auto width</param>
+            <param name="height">Height of the control in property manager page dialog box units. Use -1 for the auto height</param>
+            <param name="resizeOptions">Options to resize as defined in <see href="http://help.solidworks.com/2016/english/api/swconst/solidworks.interop.swconst~solidworks.interop.swconst.swpropmgrpagecontrolonresizeoptions_e.html">swPropMgrPageControlOnResizeOptions_e Enumeration</see></param>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.DependentOnAttribute">
+            <summary>
+            Allows to enable dependency of the control from another controls
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.DependentOnAttribute.#ctor(System.Type,System.Object[])">
+            <summary>Assigns the dependency based on a handler for the specified dependencies</summary>
+            <param name="dependencyHandler">Dependency handler of type <see cref="T:CodeStack.SwEx.PMPage.Base.DependencyHandler"/></param>
+            <param name="dependencies">List of tags of dependent controls. Use <see cref="T:CodeStack.SwEx.PMPage.Attributes.ControlTagAttribute"/> to tag the controls</param>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.HelpAttribute">
+            <summary>
+            Provides the additional help links for the page
+            </summary>
+            <remarks>Applied to the model class</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.HelpAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Constructor for specifying links to help resources
+            </summary>
+            <param name="helpLink">Link to help documentation</param>
+            <param name="whatsNewLink">Link to what's new page</param>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.IgnoreBindingAttribute">
+            <summary>
+            Indicates that current property should be ignored for binding
+            and control should not be created
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.MessageAttribute">
+            <summary>
+            Attributes allows to specify the message to be displayed in the property manager page
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.MessageAttribute.#ctor(System.String,System.String,SolidWorks.Interop.swconst.swPropertyManagerPageMessageVisibility,SolidWorks.Interop.swconst.swPropertyManagerPageMessageExpanded)">
+            <summary>
+            Constructor to specify message and its parameters
+            </summary>
+            <param name="text">Text to be displayed in the message</param>
+            <param name="caption">Message box caption</param>
+            <param name="visibility">Visibility option as defined in <see href="http://help.solidworks.com/2014/English/api/swconst/SolidWorks.Interop.swconst~SolidWorks.Interop.swconst.swPropertyManagerPageMessageVisibility.html">swPropertyManagerPageMessageVisibility Enumeration</see></param>
+            <param name="expanded">Expansion state as defined in <see href="http://help.solidworks.com/2014/english/api/swconst/solidworks.interop.swconst~solidworks.interop.swconst.swpropertymanagerpagemessageexpanded.html">swPropertyManagerPageMessageExpanded Enumeration</see></param>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.OptionBoxAttribute">
+            <summary>
+            Attribute indicates that current property should be rendered as option box
+            </summary>
+            <remarks>This attribute is only applicable for <see cref="T:System.Enum">enum</see> types</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.OptionBoxAttribute.#ctor">
+            <summary>
+            Sets the current property as option box
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.OptionBoxOptionsAttribute">
+            <summary>
+            Additional options for option box control
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.OptionBoxOptionsAttribute.#ctor(SolidWorks.Interop.swconst.swPropMgrPageOptionStyle_e)">
+            <summary>
+            Assigns additional options (such as style) for this option box control
+            </summary>
+            <param name="style"></param>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.SelectionBoxOptionsAttribute">
+            <summary>
+            Additional options for selection box control
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.SelectionBoxOptionsAttribute.#ctor(SolidWorks.Interop.swconst.swPropMgrPageSelectionBoxStyle_e,System.Drawing.KnownColor)">
+            <summary>
+            Constructor for selection box options
+            </summary>
+            <param name="style">Selection box style as defined in <see href="http://help.solidworks.com/2016/english/api/swconst/solidworks.interop.swconst~solidworks.interop.swconst.swpropmgrpageselectionboxstyle_e.html">swPropMgrPageSelectionBoxStyle_e Enumeration</see></param>
+            <param name="selColor">Color of the selections in this selection box</param>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.NumberBoxOptionsAttribute">
+            <summary>
+            Provides additional options for number box control
+            </summary>
+            <remarks>Applied to all numeric properties (i.e. <see cref="T:System.Double"/>, <see cref="T:System.Int32"/>)</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.NumberBoxOptionsAttribute.#ctor(SolidWorks.Interop.swconst.swPropMgrPageNumberBoxStyle_e)">
+            <summary>
+            Constructor for specifying number box options
+            </summary>
+            <param name="style">Number box style as defined in <see href="http://help.solidworks.com/2016/english/api/swconst/solidworks.interop.swconst~solidworks.interop.swconst.swpropmgrpagenumberboxstyle_e.html">swPropMgrPageNumberBoxStyle_e Enumeration</see>0 for default style</param>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.NumberBoxOptionsAttribute.#ctor(SolidWorks.Interop.swconst.swNumberboxUnitType_e,System.Double,System.Double,System.Double,System.Boolean,System.Double,System.Double,SolidWorks.Interop.swconst.swPropMgrPageNumberBoxStyle_e)">
+            <inheritdoc cref = "M:CodeStack.SwEx.PMPage.Attributes.NumberBoxOptionsAttribute.#ctor(SolidWorks.Interop.swconst.swPropMgrPageNumberBoxStyle_e)" />
+            <param name="units">Number box units as defined in <see href="http://help.solidworks.com/2016/english/api/swconst/solidworks.interop.swconst~solidworks.interop.swconst.swnumberboxunittype_e.html">swNumberboxUnitType_e Enumeration</see>
+            0 for not using units. If units are specified corresponding current user unit system
+            will be used and the corresponding units marks will be displayed in the number box.
+            Regardless of the current unit system the value will be stored in system units (MKS)
+            </param>
+            <param name="minimum">Minimum allowed value for the number box</param>
+            <param name="maximum">Maximum allowed value for the number box</param>
+            <param name="increment">Default increment when up or down increment button is clicked</param>
+            <param name="inclusive">True sets the minimum-maximum as inclusive, false sets it as exclusive</param>
+            <param name="fastIncrement">Fast increment for mouse wheel or scroll</param>
+            <param name="slowIncrement">Slow increment for mouse wheel or scroll</param>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.PageOptionsAttribute">
+            <summary>
+            Property manager page options
+            </summary>
+            <remarks>Applied to the main class of the data model</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.PageOptionsAttribute.#ctor(SolidWorks.Interop.swconst.swPropertyManagerPageOptions_e)">
+            <summary>Constructor for specifying property manager page options</summary>
+            <param name="opts">property page options as defined in <see href="http://help.solidworks.com/2016/english/api/swconst/solidworks.interop.swconst~solidworks.interop.swconst.swpropertymanagerpageoptions_e.html">swPropertyManagerPageOptions_e Enumeration</see></param>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.PageOptionsAttribute.#ctor(System.Type,System.String,SolidWorks.Interop.swconst.swPropertyManagerPageOptions_e)">
+            <inheritdoc cref="M:CodeStack.SwEx.PMPage.Attributes.PageOptionsAttribute.#ctor(SolidWorks.Interop.swconst.swPropertyManagerPageOptions_e)"/>
+            <param name="resType"><token>resType</token></param>
+            <param name="iconResName">Name of image resource for property manager page icon</param>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.SelectionBoxAttribute">
+            <summary>
+            Sets the current control to be a selection box
+            </summary>
+            <remarks>This attribute is applicable for properties of type <see cref="T:System.Object"/> or
+            specific SOLIDWORKS type (e.g. <see cref="T:SolidWorks.Interop.sldworks.IEdge"/>, <see cref="T:SolidWorks.Interop.sldworks.IComponent2"/>, <see cref="T:SolidWorks.Interop.sldworks.IFeature"/> etc.
+            In this case the selection box will allow single entity selection only.
+            <see cref="T:System.Collections.Generic.IList`1"/> are also supported. In this case multiple entities can be selected</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.SelectionBoxAttribute.#ctor(SolidWorks.Interop.swconst.swSelectType_e[])">
+            <summary>
+            Constructor for selection box options
+            </summary>
+            <param name="filters">Filters allowed for selection into this selection box</param>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.SelectionBoxAttribute.#ctor(System.Int32,SolidWorks.Interop.swconst.swSelectType_e[])">
+            <inheritdoc cref="M:CodeStack.SwEx.PMPage.Attributes.SelectionBoxAttribute.#ctor(SolidWorks.Interop.swconst.swSelectType_e[])"/>
+            <param name="mark">Selection mark. If multiple selections box are used - use different selection marks for each of them
+            to differentiate the selections</param>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.SelectionBoxAttribute.#ctor(System.Type,SolidWorks.Interop.swconst.swSelectType_e[])">
+            <inheritdoc cref="M:CodeStack.SwEx.PMPage.Attributes.SelectionBoxAttribute.#ctor(System.Int32,System.Type,SolidWorks.Interop.swconst.swSelectType_e[])"/>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.SelectionBoxAttribute.#ctor(System.Int32,System.Type,SolidWorks.Interop.swconst.swSelectType_e[])">
+            <inheritdoc cref="M:CodeStack.SwEx.PMPage.Attributes.SelectionBoxAttribute.#ctor(System.Int32,SolidWorks.Interop.swconst.swSelectType_e[])"/>
+            <param name="customFilter">Type of custom filter of <see cref="T:CodeStack.SwEx.PMPage.Base.SelectionCustomFilter`1"/> for custom logic for filtering selection objects</param>
+            <exception cref="T:System.InvalidCastException"/>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.ComboBoxOptionsAttribute">
+            <summary>
+            Provides additional options for the drop-down list box
+            </summary>
+            <remarks>Must be applied to the property of <see cref="T:System.Enum"/></remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.ComboBoxOptionsAttribute.#ctor(SolidWorks.Interop.swconst.swPropMgrPageComboBoxStyle_e)">
+            <summary>
+            Constructor for specifying style of combo box
+            </summary>
+            <param name="style">Specific style applied for combo box control.
+            Refer <see href="http://help.solidworks.com/2016/english/api/swconst/solidworks.interop.swconst~solidworks.interop.swconst.swpropmgrpagecomboboxstyle_e.html">swPropMgrPageComboBoxStyle_e Enumeration</see> for more information.
+            Use 0 for default style</param>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.ControlTagAttribute">
+            <summary>
+            Adds the tag associated with control created for the specified model property
+            </summary>
+            <remarks>This attribute is used together with <see cref="T:CodeStack.SwEx.PMPage.Attributes.DependentOnAttribute"/> to mark the dependencies</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.ControlTagAttribute.#ctor(System.Object)">
+            <param name="tag">Tag which should be associated with the control created for this property.
+            It is recommended to use enumerator or string as a tag</param>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.BitmapOptionsAttribute">
+            <summary>
+            Additional options for bitmap control
+            </summary>
+            <remarks>Applied to property of type <see cref="T:System.Drawing.Image"/></remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.BitmapOptionsAttribute.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Constructor for bitmap options
+            </summary>
+            <param name="width">Width of the bitmap</param>
+            <param name="height">Height of the bitmap</param>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.TabAttribute">
+            <summary>
+            Attribute indicates that current property or class should be rendered as tab box
+            </summary>
+            <remarks>This attribute is only applicable for complex types which contain nested properties</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.TabAttribute.#ctor">
+            <summary>
+            Sets the current property as tab container
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Attributes.TextBoxOptionsAttribute">
+            <summary>
+            Additional options for text box control
+            </summary>
+            <remarks>Applied to property of type <see cref="T:System.String"/></remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Attributes.TextBoxOptionsAttribute.#ctor(SolidWorks.Interop.swconst.swPropMgrPageTextBoxStyle_e)">
+            <summary>
+            Constructor for text box options
+            </summary>
+            <param name="style">Text box control style as defined in <see href="http://help.solidworks.com/2016/english/api/swconst/solidworks.interop.swconst~solidworks.interop.swconst.swpropmgrpagetextboxstyle_e.html">swPropMgrPageTextBoxStyle_e Enumeration</see></param>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Base.DependencyHandler">
+            <summary>
+            Handler for the control dependencies marked with <see cref="T:CodeStack.SwEx.PMPage.Attributes.DependentOnAttribute"/>
+            </summary>
+            <remarks>This handler should be used if it is required to change the state of controls
+            depending on the states/values of other controls.
+            For example one control should be disabled if check box is checked</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Base.DependencyHandler.UpdateControlState(CodeStack.SwEx.PMPage.Controls.IPropertyManagerPageElementEx,CodeStack.SwEx.PMPage.Controls.IPropertyManagerPageElementEx[])">
+            <summary>
+            Called when the control state needs to be updated (i.e. one of the parent dependency controls has changed its value)
+            </summary>
+            <param name="control">This is a source control decorated with <see cref="T:CodeStack.SwEx.PMPage.Attributes.DependentOnAttribute"/></param>
+            <param name="parents">Dependency controls. These are the controls passed as the parameter to <see cref="T:CodeStack.SwEx.PMPage.Attributes.DependentOnAttribute"/></param>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Base.ClosingArg">
+            <summary>
+            Represents the parameter of <see cref="E:CodeStack.SwEx.PMPage.PropertyManagerPageHandlerEx.Closing"/> notification
+            </summary>
+            <remarks>If <see cref="P:CodeStack.SwEx.PMPage.Base.ClosingArg.Cancel"/> parameter is set to true and <see cref="P:CodeStack.SwEx.PMPage.Base.ClosingArg.ErrorTitle"/>
+            and <see cref="P:CodeStack.SwEx.PMPage.Base.ClosingArg.ErrorMessage"/> are not empty. Framework will display the error popup box
+            next to the property manager page</remarks>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Base.ClosingArg.Cancel">
+            <summary>
+            True to cancel the closing of property manager page
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Base.ClosingArg.ErrorTitle">
+            <summary>
+            Title of the error to be displayed to the user or empty string if no error to be displayed
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Base.ClosingArg.ErrorMessage">
+            <summary>
+            Message of the error to be displayed to the user or empty string if no error to be displayed
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Base.IPropertyManagerPageEx`2">
+            <summary>
+            Represents the wrapper for the property manager page which builds the user interface 
+            based on the provided data model
+            </summary>
+            <typeparam name="THandler">Handler of the property manager page which provides an access to additional properties and events related to user interface.
+            Must be com visible</typeparam>
+            <typeparam name="TModel">Type used both as the design layout and data model</typeparam>
+            <remarks>The pointer to this page must be stored on a class level to avoid garbage collection</remarks>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Base.IPropertyManagerPageEx`2.Model">
+            <summary>
+            Pointer to the current instance of the model
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Base.IPropertyManagerPageEx`2.Handler">
+            <summary>
+            Pointer to the handler
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Base.IPropertyManagerPageEx`2.Controls">
+            <summary>
+            List of all controls created in the property manager page
+            </summary>
+            <remarks>Tag data model fields with <see cref="T:CodeStack.SwEx.PMPage.Attributes.ControlTagAttribute"/>
+            and use <see cref="P:Xarial.VPages.Framework.Base.IControl.Tag"/> property to find the corresponding controls created for the data fields</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Base.IPropertyManagerPageEx`2.Show(`1)">
+            <summary>
+            Display property manager page modeless
+            </summary>
+            <param name="model">Data model to create property manager page for</param>
+            <remarks>Control is returned immediately after calling the method.
+            Use <see cref="!:THandler.Closed"/> event to receive a notification when this property manager page is closed</remarks>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Base.IPropertyManagerPageHandlerEx">
+            <summary>
+            Provides additional user interface related handlers and options
+            </summary>
+        </member>
+        <member name="E:CodeStack.SwEx.PMPage.Base.IPropertyManagerPageHandlerEx.DataChanged">
+            <summary>
+            Fired when the data is changed (i.e. text box changed, combobox selection changed etc.)
+            </summary>
+        </member>
+        <member name="E:CodeStack.SwEx.PMPage.Base.IPropertyManagerPageHandlerEx.Closing">
+            <summary>
+            Fired when property page is about to be closed. Use the argument to provide additional instructions
+            </summary>
+        </member>
+        <member name="E:CodeStack.SwEx.PMPage.Base.IPropertyManagerPageHandlerEx.Closed">
+            <summary>
+            Fired when property manager page is closed
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Base.SelectionCustomFilter`1">
+            <summary>
+            Custom filter to be used in <see cref="T:CodeStack.SwEx.PMPage.Attributes.SelectionBoxAttribute"/> which allows providing a 
+            custom logic to filter the selections in the selection box
+            </summary>
+            <typeparam name="TSelection">Type of selection or <see cref="T:System.Object"/></typeparam>
+            <remarks>Use this method if object needs to be filtered by additional parameters (not just by type).
+            For example only planar faces can be selected or only part components can be selected in the assembly</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Base.SelectionCustomFilter`1.Filter(CodeStack.SwEx.PMPage.Controls.IPropertyManagerPageControlEx,`0,SolidWorks.Interop.swconst.swSelectType_e,System.String@)">
+            <inheritdoc cref="M:CodeStack.SwEx.PMPage.Base.SelectionCustomFilter`1.Filter(`0)"/> />
+             <param name="selBox">Pointer to the selection box control</param>
+             <param name="selType">Type of the selecting object as defined in <see href="http://help.solidworks.com/2014/english/api/swconst/solidworks.interop.swconst~solidworks.interop.swconst.swselecttype_e.html">swSelectType_e Enumeration</see></param>
+             <param name="itemText">Text to be displayed in the selection box</param>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Base.SelectionCustomFilter`1.Filter(`0)">
+            <summary>
+            Filters if selection should be added to the selection box
+            </summary>
+            <param name="selection">Pointer to SOLIDWORKS object which is about to be selected</param>
+            <returns>True to add the selection to selection box, false to ignore the selection</returns>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Base.PropertyManagerPageClosedDelegate">
+            <summary>
+            Delegate for handling the parameters of property manager page closed event
+            </summary>
+            <param name="reason">Reason of closing as defined in <see href="http://help.solidworks.com/2016/english/api/swconst/solidworks.interop.swconst~solidworks.interop.swconst.swpropertymanagerpageclosereasons_e.html">swPropertyManagerPageCloseReasons_e Enumeration</see></param>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Base.PropertyManagerPageClosingDelegate">
+            <summary>
+            Delegate for handling the parameters of property manager page closing event
+            </summary>
+            <param name="reason">Reason of closing as defined in <see href="http://help.solidworks.com/2016/english/api/swconst/solidworks.interop.swconst~solidworks.interop.swconst.swpropertymanagerpageclosereasons_e.html">swPropertyManagerPageCloseReasons_e Enumeration</see></param>
+            <param name="arg">Closing argument. Use this argument to cancel closing if needed</param>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Controls.IPropertyManagerPageElementEx">
+            <summary>
+            Represents the base interface for elements in property manager page (e.g. controls, groups, tabs)
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Controls.IPropertyManagerPageElementEx.Enabled">
+            <summary>
+            Enable state of this control
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Controls.IPropertyManagerPageElementEx.Visible">
+            <summary>
+            Visibility state of the control
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Controls.PropertyManagerPageElementEx">
+            <summary>
+            List of extension methods of property manager page element
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Controls.PropertyManagerPageElementEx.GetValue``1(CodeStack.SwEx.PMPage.Controls.IPropertyManagerPageElementEx)">
+            <summary>
+            Gets the value from the property manager page element
+            </summary>
+            <typeparam name="T">Type of the control value</typeparam>
+            <param name="elem">Property Manager Page element</param>
+            <returns>Value extracted from the control</returns>
+            <exception cref="T:System.InvalidCastException"/>
+            <exception cref="T:System.NotSupportedException"/>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.Controls.PropertyManagerPageElementEx.GetSwControl``1(CodeStack.SwEx.PMPage.Controls.IPropertyManagerPageElementEx)">
+            <summary>
+            Gets the underlying SOLIDWORKS Property Manager Page control
+            </summary>
+            <typeparam name="T">Type of control to return</typeparam>
+            <param name="elem">Property Manager Page element</param>
+            <returns>Underlying control in the Property Manager Page</returns>
+            <exception cref="T:System.InvalidCastException"/>
+            <exception cref="T:System.NotSupportedException"/>
+            <remarks>For controls specify <see href="http://help.solidworks.com/2017/English/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IPropertyManagerPageControl.html">IPropertyManagerPageControl</see> as a generic parameter to return base interface for control.
+            You can also specify specific interfaces (e.g.  <see href="https://help.solidworks.com/2017/English/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IPropertyManagerPageNumberbox.html">IPropertyManagerPageNumberbox</see> or <see href="https://help.solidworks.com/2017/English/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IPropertyManagerPageTextbox.html">IPropertyManagerPageTextbox</see>
+            For groups specify <see href="http://help.solidworks.com/2017/English/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IPropertyManagerPageGroup.html">IPropertyManagerPageGroup</see>
+            For tabs specify <see href="http://help.solidworks.com/2017/English/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IPropertyManagerPageTab.html">IPropertyManagerPageTab</see>
+            </remarks>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Controls.IPropertyManagerPageTabEx">
+            <summary>
+            Represents the tab control in property manager page
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Controls.IPropertyManagerPageTabEx.Tab">
+            <summary>
+            Pointer to the underlying tab control
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Controls.PropertyManagerPageTabEx`1.Enabled">
+            <summary>
+            Not supported
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Controls.PropertyManagerPageTabEx`1.Visible">
+            <summary>
+            Not supported
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Controls.PropertyManagerPageOptionBox">
+            <summary>
+            Wrapper class around the group of <see href="http://help.solidworks.com/2016/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.ipropertymanagerpageoption.html">IPropertyManagerPageOption </see> controls
+            </summary>
+            <remarks>All set properties will be applied to all controls in the group, while get will return the value of first control</remarks>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Controls.PropertyManagerPageOptionBox.Controls">
+            <summary>
+            Array of controls in the current option group
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Controls.IPropertyManagerPageControlEx">
+            <summary>
+            Base wrapper around native SOLIDWORKS Property Manager Page controls (i.e. TextBox, SelectionBox, NumberBox etc.)
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Controls.IPropertyManagerPageControlEx.SwControl">
+            <summary>
+            Pointer to the native SOLIDWORKS control of type <see href="http://help.solidworks.com/2012/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.ipropertymanagerpagecontrol.html"/>
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Controls.IPropertyManagerPageGroupEx">
+            <summary>
+            Represents the group box control
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Controls.IPropertyManagerPageGroupEx.Group">
+            <summary>
+            Pointer to the underlying group box
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Controls.PropertyManagerPageGroupEx`1.Enabled">
+            <summary>
+            Not supported
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Controls.PropertyManagerPageGroupEx`1.Visible">
+            <inheritdoc/>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.Properties.Resources.DefaultBitmap">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.PropertyManagerPageEx`2">
+            <inheritdoc/>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.PropertyManagerPageEx`2.Model">
+            <inheritdoc/>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.PropertyManagerPageEx`2.Handler">
+            <inheritdoc/>
+        </member>
+        <member name="P:CodeStack.SwEx.PMPage.PropertyManagerPageEx`2.Controls">
+            <inheritdoc/>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.PropertyManagerPageEx`2.#ctor(SolidWorks.Interop.sldworks.ISldWorks)">
+            <summary>Creates instance of property manager page</summary>
+            <param name="app">Pointer to session of SOLIDWORKS where the property manager page to be created</param>
+        </member>
+        <member name="M:CodeStack.SwEx.PMPage.PropertyManagerPageEx`2.Show(`1)">
+            <inheritdoc/>
+        </member>
+        <member name="T:CodeStack.SwEx.PMPage.PropertyManagerPageHandlerEx">
+            <inheritdoc/>
+        </member>
+        <member name="E:CodeStack.SwEx.PMPage.PropertyManagerPageHandlerEx.DataChanged">
+            <inheritdoc/>
+        </member>
+        <member name="E:CodeStack.SwEx.PMPage.PropertyManagerPageHandlerEx.Closing">
+            <inheritdoc/>
+        </member>
+        <member name="E:CodeStack.SwEx.PMPage.PropertyManagerPageHandlerEx.Closed">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

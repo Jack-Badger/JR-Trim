@@ -1,0 +1,770 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CodeStack.SwEx.MacroFeature</name>
+    </assembly>
+    <members>
+        <member name="T:CodeStack.SwEx.MacroFeature.Attributes.FeatureIconAttribute">
+            <summary>
+            Specifies the icon for macro feature to be displayed in the Feature Manager Tree
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Attributes.FeatureIconAttribute.#ctor(System.Type,System.String,System.String)">
+            <summary>
+            Specifies the master icon for all macro feature states
+            </summary>
+            <param name="resType">Resource type</param>
+            <param name="resName">Name of the resource representing the icon</param>
+            <param name="iconFolderName">Folder name to store the icons.
+            This folder will be created in the Program Data.
+            If empty value is specified icon will be created at the default location</param>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Attributes.FeatureIconAttribute.#ctor(System.Type,System.String,System.String,System.String,System.String)">
+            <inheritdoc cref="M:CodeStack.SwEx.MacroFeature.Attributes.FeatureIconAttribute.#ctor(System.Type,System.String,System.String)"/>
+             <param name="smallResName">Name of the resource representing the small size icon</param>
+             <param name="mediumResName">Name of the resource representing the medium size icon</param>
+             <param name="largeResName">Name of the resource representing the large size icon</param>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Attributes.OptionsAttribute">
+            <summary>
+            Provides additional options for macro feature
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Attributes.OptionsAttribute.#ctor(System.String,SolidWorks.Interop.swconst.swMacroFeatureOptions_e)">
+            <summary>
+            Options for macro feature
+            </summary>
+            <param name="baseName">Base name of the macro feature.
+            This is a default name assigned to the feature when created followed by the index</param>
+            <param name="flags">Additional options for macro feature as defined in <see href="http://help.solidworks.com/2016/english/api/swconst/solidworks.interop.swconst~solidworks.interop.swconst.swmacrofeatureoptions_e.html">swMacroFeatureOptions_e enumeration</see></param>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Attributes.OptionsAttribute.#ctor(System.String,System.String,SolidWorks.Interop.swconst.swMacroFeatureOptions_e)">
+            <inheritdoc cref="M:CodeStack.SwEx.MacroFeature.Attributes.OptionsAttribute.#ctor(System.String,SolidWorks.Interop.swconst.swMacroFeatureOptions_e)"/>
+            <param name="provider">Default message to display when the COM server is not registered for this feature.
+            The provided text is displayed in the What's Wrong dialog of SOLIDWORKS after the 'Add-in not found. Please contact'. This feature is only available in SOLIDWORKS 2016 or newer (revision 24.0)</param>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Attributes.ParameterDimensionAttribute">
+            <summary>
+            Specifies that the current property is a dimension of the macro feature.
+            The value if the property is the current value of the dimension.
+            This property is bi-directional: it will update the value of the dimension
+            when changed within the <see cref="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx.OnRebuild(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature)"/> 
+            as well as will contain the current value of the dimension when it got modified by the user in the 
+            graphics area
+            </summary>
+            <remarks>This should only be used for numeric properties</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Attributes.ParameterDimensionAttribute.#ctor(SolidWorks.Interop.swconst.swDimensionType_e)">
+            <summary>
+            Marks this property as dimension and assigns the dimension type
+            </summary>
+            <param name="dimType">Type of the dimension as defined in <see href="http://help.solidworks.com/2016/English/api/swconst/SolidWorks.Interop.swconst~SolidWorks.Interop.swconst.swDimensionType_e.html">swDimensionType_e enumeration</see></param>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Attributes.ParameterEditBodyAttribute">
+            <summary>
+            Specifies that the current property is an edit body of the macro feature.
+            Edit bodies are used by macro feature if it is required to modify or replace any existing bodies.
+            Edit bodies will be acquire by macro feature and replaced by the <see cref="T:CodeStack.SwEx.MacroFeature.Base.MacroFeatureRebuildBodyResult"/>
+            returned from <see cref="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx.OnRebuild(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature)"/>.
+            Multiple bodies are supported
+            </summary>
+            <remarks>Supported property type is <see href="http://help.solidworks.com/2012/English/api/sldworksapi/SOLIDWORKS.Interop.sldworks~SOLIDWORKS.Interop.sldworks.IBody2.html">IBody2</see>
+            or <see cref="T:System.Collections.Generic.List`1"/> of bodies</remarks>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Attributes.ParameterSelectionAttribute">
+            <summary>
+            Specifies that the current property is a selection of the macro feature.
+            Selections allows to provide the relations between existing objects and this macro feature.
+            Not only macro feature can access those selections to update itself, but the <see cref="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx.OnRebuild(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature)"/>
+            will be automatically triggered every time the geometry of related selections is changed enabling the parametric nature of the macro feature
+            </summary>
+            <remarks>Supported property types are <see cref="T:System.Object"/> (when selections can be of different entities) or a specific entity type of SOLIDWORKS (e.g. <see href="http://help.solidworks.com/2012/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.iface2.html">IFace2</see>)
+            To specify multiple entities set the property type of <see cref="T:System.Collections.Generic.List`1"/>
+            </remarks>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Attributes.ParametersVersionAttribute">
+            <summary>
+            Attributes specifies the current version of the macro feature parameters data model.
+            This allows to implement backward compatibility for the macro feature parameters 
+            for future versions of macro feature
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Attributes.ParametersVersionAttribute.#ctor(System.Int32,System.Int32,System.Type)">
+            <summary>
+            Specifies the current version of the parameters data model
+            </summary>
+            <param name="major">Major version</param>
+            <param name="minor">Minor version</param>
+            <param name="versionConverterType">Type of the parameters converter between versions which implements 
+            <see cref="T:CodeStack.SwEx.MacroFeature.Base.IParametersVersionConverter"/> interface</param>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Attributes.ParametersVersionAttribute.#ctor(System.String,System.Type)">
+            <inheritdoc cref="M:CodeStack.SwEx.MacroFeature.Attributes.ParametersVersionAttribute.#ctor(System.Int32,System.Int32,System.Type)"/>
+            <param name="version">Full version</param>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Base.MacroFeatureUnloadReason_e">
+            <summary>
+            Reason of macro feature handler unloading. Used in <see cref="M:CodeStack.SwEx.MacroFeature.Base.IMacroFeatureHandler.Unload(CodeStack.SwEx.MacroFeature.Base.MacroFeatureUnloadReason_e)"/>
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.MacroFeature.Base.MacroFeatureUnloadReason_e.ModelClosed">
+            <summary>
+            Model containing this macro feature is closed
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.MacroFeature.Base.MacroFeatureUnloadReason_e.Deleted">
+            <summary>
+            This macro feature is deleted
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Base.IMacroFeatureHandler">
+            <summary>
+            Handler of each macro feature used in <see cref="T:CodeStack.SwEx.MacroFeature.MacroFeatureEx`2"/>
+            </summary>
+            <remarks>The instance of the specific class will be created for each macro feature</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Base.IMacroFeatureHandler.Init(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature)">
+            <summary>
+            Called when macro feature is created or loaded first time
+            </summary>
+            <param name="app">Pointer to application</param>
+            <param name="model">Pointer to model</param>
+            <param name="feat">Pointer to feature</param>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Base.IMacroFeatureHandler.Unload(CodeStack.SwEx.MacroFeature.Base.MacroFeatureUnloadReason_e)">
+            <summary>
+            Called when macro feature is deleted or model is closed
+            </summary>
+            <param name="reason">Reason of macro feature unload</param>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Base.IParametersVersionConverter">
+            <summary>
+            Mechanism allowing to support backward compatibility of the macro feature parameters across the versions.
+            This interface is coupled with <see cref="T:CodeStack.SwEx.MacroFeature.Attributes.ParametersVersionAttribute"/>
+            </summary>
+            <remarks>This class is a dictionary of version and the appropriate converter from the previous version to 
+            the specified one. Use <see cref="T:CodeStack.SwEx.MacroFeature.Base.ParametersVersionConverter"/> for the specific implementation</remarks>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Base.ParametersVersionConverter">
+            <summary>
+            Specific implementation of <see cref="T:CodeStack.SwEx.MacroFeature.Base.IParametersVersionConverter"/>
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Base.IParameterConverter">
+            <summary>
+            Represents the conversion routines between this version of parameters and previous version of the parameters
+            </summary>
+            <remarks>Use specific implementation <see cref="T:CodeStack.SwEx.MacroFeature.Base.ParameterConverter"/></remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Base.IParameterConverter.ConvertEditBodies(SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,SolidWorks.Interop.sldworks.IBody2[])">
+            <summary>
+            Converts edit bodies from previous version
+            </summary>
+            <param name="model">Pointer to current model</param>
+            <param name="feat">Pointer to current feature</param>
+            <param name="editBodies">Array of edit bodies form the previous version of parameters</param>
+            <returns>Array of new bodies in the new version of macro feature</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Base.IParameterConverter.ConvertDisplayDimensions(SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,SolidWorks.Interop.sldworks.IDisplayDimension[])">
+            <summary>
+            Converts display dimensions from previous version
+            </summary>
+            <param name="model">Pointer to current model</param>
+            <param name="feat">Pointer to current feature</param>
+            <param name="dispDims">Array of display dimensions from the previous version</param>
+            <returns>Array of display dimensions in the new version of macro feature</returns>
+            <remarks>If number of dimensions have changed in the new version - automatic upgrade is not possible
+            as currently SOLIDWORKS API doesn't allow to change the existing display dimensions of macro feature.
+            If this is the case return the <see cref="T:CodeStack.SwEx.MacroFeature.Placeholders.DisplayDimensionPlaceholder"/> as a placeholder of the updated dimension.
+            In this case dimension will not be create but feature will be operational and <see cref="F:CodeStack.SwEx.MacroFeature.Base.MacroFeatureOutdateState_e.Dimensions"/> will be returned as the state of the feature parameters</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Base.IParameterConverter.ConvertParameters(SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Converts parameters from previous version
+            </summary>
+            <param name="model">Pointer to current model</param>
+            <param name="feat">Pointer to current feature</param>
+            <param name="parameters">Dictionary of parameter names and values</param>
+            <returns>Parameters for the new version</returns>
+            <remarks>Parameters list also contains the indices for the objects in macro feature (edit bodies, selection, dimensions)</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Base.IParameterConverter.ConvertSelections(SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,System.Object[])">
+            <summary>
+            Converts selections from previous version
+            </summary>
+            <param name="model">Pointer to current model</param>
+            <param name="feat">Pointer to current feature</param>
+            <param name="selection">Array of selections from previous version</param>
+            <returns>Selections correspond to new version of macro feature</returns>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Base.ParameterConverter">
+            <inheritdoc/>
+            <summary>
+            Specific implementation of <see cref="T:CodeStack.SwEx.MacroFeature.Base.IParameterConverter"/>
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Base.MacroFeatureOutdateState_e">
+            <summary>
+            State of macro feature parameters returned from <see cref="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1.SetParameters(SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,SolidWorks.Interop.sldworks.IMacroFeatureData,`0,CodeStack.SwEx.MacroFeature.Base.MacroFeatureOutdateState_e@)"/>
+            or <see cref="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1.SetParameters(SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,SolidWorks.Interop.sldworks.IMacroFeatureData,`0,CodeStack.SwEx.MacroFeature.Base.MacroFeatureOutdateState_e@)"/> in cases
+            where new version of macro feature's parameters could not be fully upgraded via <see cref="T:CodeStack.SwEx.MacroFeature.Base.IParametersVersionConverter"/>
+            </summary>
+            <remarks>Some of the macro feature parameters such as icons or dimensions cannot be upgraded, in this case
+            the specific state will be returned. It is recommended to warn the user and use <see cref="M:SolidWorks.Interop.sldworks.FeatureManagerEx.ReplaceComFeature``1(SolidWorks.Interop.sldworks.IFeatureManager,SolidWorks.Interop.sldworks.IFeature)"/>
+            to properly upgrade feature</remarks>
+        </member>
+        <member name="F:CodeStack.SwEx.MacroFeature.Base.MacroFeatureOutdateState_e.UpToDate">
+            <summary>
+            All parameters are up-to-date
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.MacroFeature.Base.MacroFeatureOutdateState_e.Icons">
+            <summary>
+            Macro feature icon has changed and cannot be updated
+            </summary>
+        </member>
+        <member name="F:CodeStack.SwEx.MacroFeature.Base.MacroFeatureOutdateState_e.Dimensions">
+            <summary>
+            Macro feature dimensions have changed and cannot be upgraded
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Base.MacroFeatureRebuildBodyResult">
+            <summary>
+            Represents the result of macro feature where macro feature holds the body or pattern of bodies
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Base.MacroFeatureRebuildResult">
+            <summary>
+            Represents the result of the macro feature regeneration method
+            which should be returned from <see cref="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx.OnRebuild(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature)"/>
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Base.MacroFeatureRebuildResult.FromBody(SolidWorks.Interop.sldworks.IBody2)">
+            <summary>
+            Creates the result from temp body
+            </summary>
+            <param name="body">Body to return</param>
+            <returns>Result</returns>
+            <remarks>Use this result if you need to macro feature to generate a single body (solid or surface)</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Base.MacroFeatureRebuildResult.FromBody(SolidWorks.Interop.sldworks.IBody2,SolidWorks.Interop.sldworks.IMacroFeatureData,System.Boolean)">
+            <inheritdoc cref="M:CodeStack.SwEx.MacroFeature.Base.MacroFeatureRebuildResult.FromBody(SolidWorks.Interop.sldworks.IBody2)"/>
+            <param name="featData">Pointer to feature data</param>
+            <param name="updateEntityIds">Indicates if it is required to automatically assign the user ids to body entities</param>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Base.MacroFeatureRebuildResult.FromBodies(SolidWorks.Interop.sldworks.IBody2[],SolidWorks.Interop.sldworks.IMacroFeatureData,System.Boolean)">
+            <inheritdoc cref="M:CodeStack.SwEx.MacroFeature.Base.MacroFeatureRebuildResult.FromBody(SolidWorks.Interop.sldworks.IBody2,SolidWorks.Interop.sldworks.IMacroFeatureData,System.Boolean)"/>
+            <summary>
+            Create the result from array of bodies
+            </summary>
+            <param name="bodies">Array of temp bodies</param>
+            <remarks>Use this method if it is required to have multiple bodies in the macro feature. This feature is only supported in SOLIDWORKS 2013 SP5 or newer (revision 21.5)</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Base.MacroFeatureRebuildResult.FromStatus(System.Boolean,System.String)">
+            <summary>
+            Returns the status of the rebuild operation
+            </summary>
+            <param name="status">True if regeneration successful, False if not</param>
+            <param name="error">Error message to be displayed in the What's Wrong dialog if <paramref name="status"/> equals to false</param>
+            <returns>Result</returns>
+            <remarks>Use this method if macro feature doesn't modify or create new bodies</remarks>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Base.MacroFeatureRebuldStatusResult">
+            <summary>
+            Represents the status result from macro feature and optional error message
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1">
+            <inheritdoc cref="T:CodeStack.SwEx.MacroFeature.MacroFeatureEx"/>
+            <summary>Represents macro feature which stores additional user parameters</summary>
+            <typeparam name="TParams">Type of class representing parameters data model</typeparam>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1.#ctor">
+            <summary>
+            Base constructor. Should be called from the derived class as it contains required initialization
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1.OnRebuild(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,`0)">
+            <inheritdoc cref="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx.OnRebuild(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature)"/>
+            <param name="parameters">Current instance of parameters of this macro feature</param>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1.OnSetDimensions(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,CodeStack.SwEx.MacroFeature.Base.MacroFeatureRebuildResult,CodeStack.SwEx.MacroFeature.Data.DimensionDataCollection,`0)">
+            <summary>
+            Override this function to configure the dimensions of macro feature (i.e. position, style, etc.)
+            </summary>
+            <param name="app">Pointer to application</param>
+            <param name="model">Pointer to current model</param>
+            <param name="feature">Pointer to macro feature</param>
+            <param name="dims">Pointer to dimensions of macro feature</param>
+            <param name="parameters">Current instance of parameters (including the values of dimensions)</param>
+            <remarks>Use the <see cref="M:CodeStack.SwEx.MacroFeature.Data.DimensionDataExtension.SetOrientation(CodeStack.SwEx.MacroFeature.Data.DimensionData,CodeStack.SwEx.MacroFeature.Data.Point,CodeStack.SwEx.MacroFeature.Data.Vector)"/>
+            helper method to set the dimension orientation and position based on its values</remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1.OnSetDimensions(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,CodeStack.SwEx.MacroFeature.Data.DimensionDataCollection,`0)">
+            <inheritdoc cref="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1.OnSetDimensions(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,CodeStack.SwEx.MacroFeature.Base.MacroFeatureRebuildResult,CodeStack.SwEx.MacroFeature.Data.DimensionDataCollection,`0)"/>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1.GetParameters(SolidWorks.Interop.sldworks.IFeature,SolidWorks.Interop.sldworks.IMacroFeatureData,SolidWorks.Interop.sldworks.IModelDoc2)">
+            <summary>
+            Returns the current instance of parameters data model for the feature
+            </summary>
+            <param name="feat">Pointer to feature</param>
+            <param name="featData">Pointer to feature data</param>
+            <param name="model">Pointer to model</param>
+            <returns>Current instance of parameters</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1.SetParameters(SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,SolidWorks.Interop.sldworks.IMacroFeatureData,`0)">
+            <summary>
+            Assigns the instance of data model to the macro feature parameters
+            </summary>
+            <param name="model">Pointer to model</param>
+            <param name="feat">Pointer to feature</param>
+            <param name="featData">Pointer to feature data</param>
+            <param name="parameters">Parameters data model</param>
+            <remarks>Call this method before calling the <see href="http://help.solidworks.com/2016/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.ifeature~modifydefinition.html">IFeature::ModifyDefinition</see></remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1.SetParameters(SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,SolidWorks.Interop.sldworks.IMacroFeatureData,`0,CodeStack.SwEx.MacroFeature.Base.MacroFeatureOutdateState_e@)">
+            <inheritdoc cref="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1.SetParameters(SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,SolidWorks.Interop.sldworks.IMacroFeatureData,`0)"/>
+            <param name="state">Current state of the parameters</param>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.MacroFeatureEx`2">
+            <inheritdoc cref="T:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1"/>
+            <summary>Represents macro feature which stores additional user parameters and provides per feature handler.
+            This version of macro feature is useful where it is required to track the lifecycle of
+            an individual feature as <see cref="T:CodeStack.SwEx.MacroFeature.MacroFeatureEx"/> behaves as a service and it creates
+            one instance per application session</summary>
+            <typeparam name="THandler">Handler of macro feature</typeparam>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`2.OnUpdateState(`1)">
+            <inheritdoc cref="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx.OnUpdateState(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature)"/>
+            <param name="handler">Pointer to the macro feature handler of the feature being updated</param>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`2.OnRebuild(`1,`0)">
+            <inheritdoc cref="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1.OnRebuild(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,`0)"/>
+            <param name="handler">Pointer to the macro feature handler of the feature being rebuilt</param>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`2.OnEditDefinition(`1)">
+            <inheritdoc cref="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx.OnEditDefinition(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature)"/>
+            <param name="handler">Pointer to the macro feature handler of the feature being edited</param>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Data.DimensionData">
+            <summary>
+            Structure representing macro feature dimension
+            </summary>
+            <remarks>This is passed to <see cref="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1.OnSetDimensions(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,CodeStack.SwEx.MacroFeature.Data.DimensionDataCollection,`0)"/>
+            in the rebuild operation</remarks>
+        </member>
+        <member name="P:CodeStack.SwEx.MacroFeature.Data.DimensionData.DisplayDimension">
+            <summary>
+            Pointer to display dimension
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.MacroFeature.Data.DimensionData.Dimension">
+            <summary>
+            Pointer to dimension
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.MacroFeature.Data.DimensionData.Name">
+            <summary>
+            Name of the parameter which corresponds to this dimension
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.DimensionData.Dispose">
+            <summary>
+            Disposing object
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Data.DimensionDataExtension">
+            <summary>
+            Extension methods on dimension data in the macro feature
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.DimensionDataExtension.SetOrientation(CodeStack.SwEx.MacroFeature.Data.DimensionData,CodeStack.SwEx.MacroFeature.Data.Point,CodeStack.SwEx.MacroFeature.Data.Vector)">
+            <summary>
+            Sets the direction of the macro feature dimension.
+            </summary>
+            <param name="dimData">Dimension data></param>
+            <param name="originPt">Dimension starting attach point</param>
+            <param name="orientation">Orientation of the dimension. For the linear dimension this is a direction along the measured line. For radial dimension this is a axis of the cylinder</param>
+            <remarks>Call this method within the <see cref="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1.OnSetDimensions(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,CodeStack.SwEx.MacroFeature.Base.MacroFeatureRebuildResult,CodeStack.SwEx.MacroFeature.Data.DimensionDataCollection,`0)"/></remarks>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Data.DimensionDataCollection">
+            <summary>
+            Collection of dimensions associated with this macro feature
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.DimensionDataCollection.Dispose">
+            <summary>
+            Disposing object
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Data.Point">
+            <summary>
+            Structure representing 3D point
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.MacroFeature.Data.Point.X">
+            <summary>
+            X coordinate
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.MacroFeature.Data.Point.Y">
+            <summary>
+            Y coordinate
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.MacroFeature.Data.Point.Z">
+            <summary>
+            Z coordinate
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.Point.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Creates point by 3 coordinates
+            </summary>
+            <param name="x">X coordinate</param>
+            <param name="y">Y coordinate</param>
+            <param name="z">Z coordinate</param>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.Point.#ctor(System.Double[])">
+            <summary>
+            Creates coordinate from the array of points
+            </summary>
+            <param name="pt">Array of 3 coordinates of the point</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when input array is null</exception>
+            <exception cref="T:System.ArgumentException">Thrown when size of the input array doesn't equal to 3</exception>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.Point.ToArray">
+            <summary>
+            Converts the point to an array of 3 coordinates
+            </summary>
+            <returns>Array of coordinates</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.Point.IsSame(CodeStack.SwEx.MacroFeature.Data.Point)">
+            <summary>
+            Compares two points coordinates by exact values
+            </summary>
+            <param name="pt">Point to compare</param>
+            <returns>Result of comparison</returns>
+            <exception cref="T:System.ArgumentNullException"/>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.Point.IsSame(System.Double,System.Double,System.Double)">
+            <summary>
+            Compares the coordinates of this point to specified values
+            </summary>
+            <param name="x">X coordinate</param>
+            <param name="y">Y coordinate</param>
+            <param name="z">Z coordinate</param>
+            <returns>True if coordinates are equal</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.Point.op_Subtraction(CodeStack.SwEx.MacroFeature.Data.Point,CodeStack.SwEx.MacroFeature.Data.Point)">
+            <summary>
+            Deducts one point of another resulting in vector
+            </summary>
+            <param name="pt1">First point</param>
+            <param name="pt2">Second point</param>
+            <returns>Vector</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.Point.op_Addition(CodeStack.SwEx.MacroFeature.Data.Point,CodeStack.SwEx.MacroFeature.Data.Vector)">
+            <summary>
+            Moves point along the vector
+            </summary>
+            <param name="pt">Point to move</param>
+            <param name="vec">Direction of move</param>
+            <returns>New point</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.Point.Move(CodeStack.SwEx.MacroFeature.Data.Vector,System.Double)">
+            <summary>
+            Moves the point along the vector by specified distance
+            </summary>
+            <param name="dir">Direction of move</param>
+            <param name="dist">Distance</param>
+            <returns>New point</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.Point.Scale(System.Double)">
+            <summary>
+            Scales the position
+            </summary>
+            <param name="scalar">Scalar value</param>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Data.Vector">
+            <inheritdoc/>
+            <summary>
+            Represents the vector
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.Vector.#ctor(System.Double,System.Double,System.Double)">
+            <inheritdoc cref="M:CodeStack.SwEx.MacroFeature.Data.Point.#ctor(System.Double,System.Double,System.Double)"/>
+            <summary>
+            Creates vector by 3 coordinates
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.Vector.#ctor(System.Double[])">
+            <summary>
+            Creates vector by direction
+            </summary>
+            <param name="dir">Direction of vector</param>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.Vector.#ctor(CodeStack.SwEx.MacroFeature.Data.Vector)">
+            <summary>
+            Creates vector by as a copy of another vector
+            </summary>
+            <param name="vec">Vector to copy</param>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.Vector.IsSame(CodeStack.SwEx.MacroFeature.Data.Vector,System.Boolean)">
+            <summary>
+            Compares the vectors
+            </summary>
+            <param name="vec">Another vector</param>
+            <param name="normilize">Normalized vectors while comparison</param>
+            <returns>True if vectors are the same</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.Vector.Normalize">
+            <summary>
+            Normalizes the vector
+            </summary>
+            <returns>New normalized vector</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.Vector.Cross(CodeStack.SwEx.MacroFeature.Data.Vector)">
+            <summary>
+            Creates a cross product of this vector with another vector
+            </summary>
+            <param name="vector">Another vector</param>
+            <returns>New cross product vector</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Data.Vector.GetLength">
+            <summary>
+            Returns the length of this vector
+            </summary>
+            <returns>Vector length</returns>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Exceptions.FutureVersionParametersException">
+            <summary>
+            Exception indicates that the version of the parameters of macro feature
+            belongs of a never version of the add-in
+            </summary>
+            <remarks>Suggest users to upgrade the add-in version to support the feature</remarks>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Exceptions.ParametersMismatchException">
+            <summary>
+            Exception indicates that the macro feature parameters have not been updated via <see cref="T:CodeStack.SwEx.MacroFeature.Base.IParametersVersionConverter"/>
+            </summary>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.Helpers.MacroFeatureParametersParser.UpdateParameters(SolidWorks.Interop.sldworks.IMacroFeatureData,System.String[],System.Int32[],System.String[])">
+            <summary>
+            Parameters are not updated when SetParameters is called from OnRebuild method, updating one by one fixes the issue
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.MacroFeatureEx">
+            <summary>
+            Represents basic macro feature class
+            </summary>
+            <remarks>Mark the class as COM visible with <see cref="T:System.Runtime.InteropServices.ComVisibleAttribute"/></remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx.OnEditDefinition(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature)">
+            <summary>
+            Called when the Edit feature menu is clicked from the feature manager tree
+            </summary>
+            <param name="app">Pointer to the application</param>
+            <param name="model">Pointer to the current model where the feature resided</param>
+            <param name="feature">Pointer to the feature being edited</param>
+            <returns>Result of the editing</returns>
+            <remarks>Use this handler to display property manager page or any other user interface to edit feature.
+            Refer the <see href="https://www.codestack.net/labs/solidworks/swex/pmpage/">SwEx.PMPage Framework</see> for advanced way of creating property pages.
+            Usually feature needs to be rolled back in the feature tree when edited. Use <see href="http://help.solidworks.com/2016/english/api/sldworksapi/SolidWorks.interop.sldworks~SolidWorks.interop.sldworks.IMacroFeatureData~AccessSelections.html">IMacroFeatureData::AccessSelections</see>
+            to start editing of the feature. Call <see href="http://help.solidworks.com/2016/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.ifeature~modifydefinition.html">IFeature::ModifyDefinition</see> to submit the changes
+            or <see href="http://help.solidworks.com/2016/english/api/sldworksapi/SolidWorks.interop.sldworks~SolidWorks.interop.sldworks.IMacroFeatureData~ReleaseSelectionAccess.html">IMacroFeatureData::ReleaseSelectionAccess</see> to cancel the editing.
+            It is important to use the same pointer to <see href="http://help.solidworks.com/2016/english/api/sldworksapi/SolidWorks.interop.sldworks~SolidWorks.interop.sldworks.IMacroFeatureData.html">IMacroFeatureData</see> in all of the above methods.
+            Use <see href="http://help.solidworks.com/2016/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.ifeature~getdefinition.html">IFeature::GetDefinition</see> to get the pointer and store it in a variable.
+            </remarks>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx.OnRebuild(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature)">
+            <summary>
+            Called when macro feature is rebuilding
+            </summary>
+            <param name="app">Pointer to the SOLIDWORKS application</param>
+            <param name="model">Pointer to the document where the macro feature being rebuild</param>
+            <param name="feature">Pointer to the feature</param>
+            <returns>Result of the operation. Use static methods of <see cref="T:CodeStack.SwEx.MacroFeature.Base.MacroFeatureRebuildResult"/>
+            class to generate results</returns>
+        </member>
+        <member name="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx.OnUpdateState(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature)">
+            <summary>
+            Called when state of the feature is changed (i.e. feature is selected, moved, updated etc.)
+            Use this method to provide additional dynamic security options on your feature (i.e. do not allow dragging, editing etc.)
+            </summary>
+            <param name="app">Pointer to the application</param>
+            <param name="model">Pointer to the model where the feature resides</param>
+            <param name="feature">Pointer to the feature to updated state</param>
+            <returns>State of feature as defined in <see href="http://help.solidworks.com/2016/english/api/swconst/SolidWorks.interop.swconst~SolidWorks.interop.swconst.swMacroFeatureSecurityOptions_e.html">swMacroFeatureSecurityOptions_e enumeration</see></returns>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Placeholders.DimensionPlaceholder">
+            <summary>
+            This is a placeholder implementation of SOLIDWORKS dimension
+            used in <see cref="T:CodeStack.SwEx.MacroFeature.Placeholders.DisplayDimensionPlaceholder"/>
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Placeholders.DisplayDimensionPlaceholder">
+            <summary>
+            This is a mock implementation of display SOLIDWORKS dimension
+            It is used in <see cref="M:CodeStack.SwEx.MacroFeature.Base.IParameterConverter.ConvertDisplayDimensions(SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,SolidWorks.Interop.sldworks.IDisplayDimension[])"/>
+            for supporting the backward compatibility of macro feature parameters
+            </summary>
+        </member>
+        <member name="T:CodeStack.SwEx.MacroFeature.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.MacroFeature.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.MacroFeature.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:CodeStack.SwEx.MacroFeature.Properties.Resources.default_icon">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="T:SolidWorks.Interop.sldworks.MacroFeatureDataEx">
+            <summary>
+            Extension methods of <see href="http://help.solidworks.com/2017/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IMacroFeatureData.html">IMacroFeatureData</see> interface
+            </summary>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.MacroFeatureDataEx.GetParameters``1(SolidWorks.Interop.sldworks.IMacroFeatureData,SolidWorks.Interop.sldworks.IFeature,SolidWorks.Interop.sldworks.IModelDoc2)">
+            <summary>
+            Deserializes the parameters of the macro feature to a structure
+            </summary>
+            <typeparam name="TParams">Type of parameters structure</typeparam>
+            <param name="featData">Pointer to macro feature data</param>
+            <param name="feat">Pointer to a feature</param>
+            <param name="model">Pointer to model document</param>
+            <returns>Parameters</returns>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.MacroFeatureDataEx.SetParameters``1(SolidWorks.Interop.sldworks.IMacroFeatureData,SolidWorks.Interop.sldworks.IFeature,SolidWorks.Interop.sldworks.IModelDoc2,``0)">
+            <summary>
+            Serializes the parameters of the macro feature to a structure
+            </summary>
+            <typeparam name="TParams">Type of parameters structure</typeparam>
+            <param name="featData">Pointer to macro feature data</param>
+            <param name="feat">Pointer to a feature</param>
+            <param name="model">Pointer to model document</param>
+            <param name="parameters">Parameters to serialize</param>
+        </member>
+        <member name="T:SolidWorks.Interop.sldworks.ModelerEx">
+            <summary>
+            Extension methods of <see href="http://help.solidworks.com/2016/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.imodeler_members.html">IModeler</see> interface
+            </summary>
+            <remarks>Use these extensions in the context of <see cref="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx.OnRebuild(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature)"/>
+            to create a body for macro feature
+            </remarks>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.ModelerEx.CreateBox(SolidWorks.Interop.sldworks.IModeler,CodeStack.SwEx.MacroFeature.Data.Point,CodeStack.SwEx.MacroFeature.Data.Vector,CodeStack.SwEx.MacroFeature.Data.Vector@,System.Double,System.Double,System.Double)">
+            <inheritdoc cref="M:SolidWorks.Interop.sldworks.ModelerEx.CreateBox(SolidWorks.Interop.sldworks.IModeler,CodeStack.SwEx.MacroFeature.Data.Point,CodeStack.SwEx.MacroFeature.Data.Vector,System.Double,System.Double,System.Double)"/>
+            <param name="refDir">Input or output direction of ref axis which corresponds to X. Specify null to auto calculate</param>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.ModelerEx.CreateBox(SolidWorks.Interop.sldworks.IModeler,CodeStack.SwEx.MacroFeature.Data.Point,CodeStack.SwEx.MacroFeature.Data.Vector,System.Double,System.Double,System.Double)">
+            <summary>
+            Creates the box solid geometry
+            </summary>
+            <param name="modeler">Pointer to modeler</param>
+            <param name="center">Center coordinate of the box in meters</param>
+            <param name="dir">Direction of the box</param>
+            <param name="width">Width of the box in meters</param>
+            <param name="length">Length of the box in meters</param>
+            <param name="height">Height of the box in meters. This is a dimension parallel to <paramref name="dir"/></param>
+            <returns>Pointer to a temp body</returns>
+            <remarks>Use this method instead of built-in <see href="http://help.solidworks.com/2016/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModeler~CreateBodyFromBox3.html">IModeler::CreateBodyFromBox</see>
+            If you need to preserve entity ids as the body generated using the built-in method won't allow to set user id,
+            which means any reference geometry generated in relation to box entities will become dangling upon rebuild</remarks>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.ModelerEx.CreateCylinder(SolidWorks.Interop.sldworks.IModeler,CodeStack.SwEx.MacroFeature.Data.Point,CodeStack.SwEx.MacroFeature.Data.Vector,System.Double,System.Double)">
+            <summary>
+            Creates the cylindrical body
+            </summary>
+            <param name="modeler">Pointer to modeler</param>
+            <param name="center">Center coordinate of cylinder in meters</param>
+            <param name="axis">Cylinder axis</param>
+            <param name="radius">Cylinder radius in meters</param>
+            <param name="height">Cylinder height</param>
+            <returns>Cylindrical temp body</returns>
+            <remarks>Use this method instead of built-in <see href="http://help.solidworks.com/2016/english/api/sldworksapi/SolidWorks.Interop.sldworks~SolidWorks.Interop.sldworks.IModeler~CreateBodyFromCyl.html">IModeler::CreateBodyFromCyl</see>
+            If you need to preserve entity ids as the body generated using the built-in method won't allow to set user id,
+            which means any reference geometry generated in relation to cylinder entities will become dangling upon rebuild</remarks>
+        </member>
+        <member name="T:SolidWorks.Interop.sldworks.DimensionEx">
+            <summary>
+            Extension methods of <see href="http://help.solidworks.com/2016/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.idimension.html">IDimension</see> interface
+            </summary>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.DimensionEx.SetDirection(SolidWorks.Interop.sldworks.IDimension,CodeStack.SwEx.MacroFeature.Data.Point,CodeStack.SwEx.MacroFeature.Data.Vector,System.Double,CodeStack.SwEx.MacroFeature.Data.Vector)">
+            <summary>
+            Sets the direction of the macro feature dimension.
+            </summary>
+            <param name="dim">Pointer to dimension. Usually retrieved from <see cref="P:CodeStack.SwEx.MacroFeature.Data.DimensionData.Dimension"/></param>
+            <param name="originPt">Dimension starting attach point</param>
+            <param name="dir">Direction of the dimension</param>
+            <param name="length">Length of the dimension (usually equal to its value)</param>
+            <param name="extDir">Optional direction of extension line</param>
+            <remarks>Call this method within the <see cref="M:CodeStack.SwEx.MacroFeature.MacroFeatureEx`1.OnSetDimensions(SolidWorks.Interop.sldworks.ISldWorks,SolidWorks.Interop.sldworks.IModelDoc2,SolidWorks.Interop.sldworks.IFeature,CodeStack.SwEx.MacroFeature.Data.DimensionDataCollection,`0)"/></remarks>
+        </member>
+        <member name="T:SolidWorks.Interop.sldworks.FeatureManagerEx">
+            <summary>
+            Extensions methods of <see href="http://help.solidworks.com/2016/english/api/sldworksapi/solidworks.interop.sldworks~solidworks.interop.sldworks.ifeaturemanager_members.html">IFeatureManager</see> interface
+            </summary>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.FeatureManagerEx.InsertComFeature``1(SolidWorks.Interop.sldworks.IFeatureManager)">
+            <summary>
+            Inserts new macro feature
+            </summary>
+            <typeparam name="TMacroFeature">Definition of COM macro feature</typeparam>
+            <param name="featMgr">Pointer to feature manager</param>
+            <returns>Newly created feature</returns>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.FeatureManagerEx.InsertComFeature``2(SolidWorks.Interop.sldworks.IFeatureManager,``1)">
+            <inheritdoc cref="M:SolidWorks.Interop.sldworks.FeatureManagerEx.InsertComFeature``1(SolidWorks.Interop.sldworks.IFeatureManager)"/>
+            <typeparam name="TParams">Type of parameters to serialize to macro feature</typeparam>
+            <param name="parameters">Parameters to serialize to macro feature</param>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.FeatureManagerEx.ReplaceComFeature``1(SolidWorks.Interop.sldworks.IFeatureManager,SolidWorks.Interop.sldworks.IFeature)">
+            <summary>
+            Replaces existing macro feature with a new one preserving the parameters
+            </summary>
+            <typeparam name="TMacroFeature">Type of macro feature</typeparam>
+            <param name="featMgr">Pointer to feature manager</param>
+            <param name="feat">Pointer to feature to replace</param>
+            <returns>Ne replaced feature</returns>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.FeatureManagerEx.ReplaceComFeature``2(SolidWorks.Interop.sldworks.IFeatureManager,SolidWorks.Interop.sldworks.IFeature,``1)">
+            <inheritdoc cref="M:SolidWorks.Interop.sldworks.FeatureManagerEx.ReplaceComFeature``1(SolidWorks.Interop.sldworks.IFeatureManager,SolidWorks.Interop.sldworks.IFeature)"/>
+            <typeparam name="TParams">Type of parameters</typeparam>
+            <param name="parameters">Parameters to assign to replaced feature</param>
+        </member>
+        <member name="T:SolidWorks.Interop.sldworks.SelectionGroup">
+            <summary>
+            Enables selection to be used in API without changing the user selection set
+            </summary>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.SelectionGroup.Add(System.Object,SolidWorks.Interop.sldworks.ISelectData)">
+            <summary>
+            Add object to current selection list
+            </summary>
+            <param name="disp">Pointer to dispatch</param>
+            <param name="selData">Optional selection data</param>
+            <returns>Result of selection</returns>
+        </member>
+        <member name="M:SolidWorks.Interop.sldworks.SelectionGroup.AddRange(System.Object[],SolidWorks.Interop.sldworks.ISelectData)">
+            <summary>
+            Adds multiple objects into selection list
+            </summary>
+            <param name="disps">Array of dispatches to select</param>
+            <param name="selData">Optional selection data</param>
+            <returns>Result of the selection</returns>
+        </member>
+    </members>
+</doc>
