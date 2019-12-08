@@ -6,7 +6,7 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>b0bd0513-2b7d-4eb0-9e1a-9c8537fa9d2b</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>JackIt</OutputName>
+    <OutputName>JRTrim</OutputName>
     <OutputType>Package</OutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">

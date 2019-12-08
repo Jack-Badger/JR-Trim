@@ -25,7 +25,7 @@
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFiles64Folder">
         <Directory Id="ThreeSixNine">
-				  <Directory Id="INSTALLFOLDER" Name="Jack It AddIn" />
+				  <Directory Id="INSTALLFOLDER" Name="JRTrim SWAddIn" />
         </Directory>
 			</Directory>
 		</Directory>
